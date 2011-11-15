@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/planos_anteriores" android:title="Planos Anteriores"
+		android:alphabeticShortcut="a" android:icon="@drawable/arquivo" />
+	<item android:id="@+id/novo_plano" android:title="Requisitar Novo Plano"
+		android:alphabeticShortcut="n" android:icon="@drawable/novo" />
+</menu>
