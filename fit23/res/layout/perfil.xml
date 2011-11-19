@@ -6,7 +6,7 @@
     android:weightSum="1" >
       <TableLayout
         android:id="@+id/tableLayout1"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" >  
             <TableRow
             android:id="@+id/tableRow1"
@@ -35,7 +35,7 @@
 
     <TableLayout
         android:id="@+id/tableLayout1"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
 

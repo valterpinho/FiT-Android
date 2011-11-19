@@ -7,7 +7,7 @@
 
     <TableLayout
         android:id="@+id/tableLayout1"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
         <TableRow
@@ -38,12 +38,12 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
         <ListView
             android:id="@+id/lv_planos"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="370dp" android:paddingTop="20px">
         </ListView>
 

@@ -20,12 +20,12 @@
     />
 		<ImageView android:id="@+id/imageView1" android:src="@drawable/logo" android:layout_gravity="center" android:layout_height="150dp" android:layout_width="300dp"/>
 		<TextView  android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="E-mail:"/>
-		<EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/txt_nsocio">
+		<EditText android:layout_height="wrap_content" android:singleLine="true" android:layout_width="fill_parent" android:id="@+id/txt_nsocio">
 			<requestFocus/>
 		</EditText>
 
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Password:"/>
-		<EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:inputType="textPassword" android:id="@+id/txt_passw"/>
+		<EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:inputType="textPassword" android:id="@+id/txt_passw"/>
 		<Button android:layout_gravity="center" android:layout_height="wrap_content" android:text="Login" android:id="@+id/btn_login" android:layout_width="136dp"/>
 
 </LinearLayout>
