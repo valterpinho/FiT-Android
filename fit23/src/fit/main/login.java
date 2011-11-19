@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -25,11 +26,14 @@ public class login extends Activity {
 		
 		setContentView(R.layout.login);
 
+		Log.e("tag", "here!");
 		
 		//adiciona listener ao botão login
 		login = (Button) findViewById(R.id.btn_login);
 		login.setOnClickListener(btn_login_listener);
-
+		
+		Log.e("tag", "here2!");
+		
 		//caixas de texto
 		nsocio = (EditText) findViewById(R.id.txt_nsocio);
 		passw = (EditText) findViewById(R.id.txt_passw);
@@ -44,7 +48,7 @@ public class login extends Activity {
 			
 			//Utils.setCookies();
 			
-			String extension = "api/sessions.xml";
+			String extension = "sessions.xml";
 			String rNode = "hash";
 			String[] fields = {"email", "password"};
 			//String[] values = {str_nsocio, str_passw};

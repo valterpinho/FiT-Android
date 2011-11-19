@@ -23,6 +23,9 @@ public class menu extends Activity {
 		
 		LinearLayout perfil = (LinearLayout) findViewById(R.id.layout_conta_pessoal);
 		perfil.setOnClickListener(lstn_perfil);
+		
+		LinearLayout notificacoes = (LinearLayout) findViewById(R.id.layout_notificacoes);
+		notificacoes.setOnClickListener(lstn_notific);
 
 		//falta adicionar listeners aos outros layouts/botoes
 	}
@@ -30,6 +33,18 @@ public class menu extends Activity {
 	private OnClickListener lstn_perfil = new OnClickListener() {
 		public void onClick(View v) {
 			Intent i = new Intent(menu.this, perfil.class);
+			
+			Bundle b = new Bundle();
+			b.putString("user-id", (getIntent().getExtras()).getString("user-id"));
+			i.putExtras(b);
+			
+			startActivity(i);
+		}
+	};
+	
+	private OnClickListener lstn_notific = new OnClickListener() {
+		public void onClick(View v) {
+			Intent i = new Intent(menu.this, list_notif.class);
 			
 			Bundle b = new Bundle();
 			b.putString("user-id", (getIntent().getExtras()).getString("user-id"));
@@ -52,7 +67,7 @@ public class menu extends Activity {
     			
 				String fields[] = {"token"};
 				String values[] = {""+userID};
-				ArrayList<String> res = Utils.request("GET", "api/planos.xml", "plano", s, fields, values);    			
+				ArrayList<String> res = Utils.request("GET", "planos.xml", "plano", s, fields, values);    			
 
     			if(res.size() > 0){
     				

@@ -30,7 +30,7 @@ public class perfil extends Activity {
 				String s[] = {"datanascimento", "email", "morada", "nome", "telefone"};
 				String fields[] = {"token"};
 				String values[] = {""+userID};
-				ArrayList<String> res = Utils.request("GET", "api/users.xml", "user", s, fields, values);
+				ArrayList<String> res = Utils.request("GET", "users.xml", "user", s, fields, values);
 				
 				Log.e("RES LENGTH", ""+res.size());
 				

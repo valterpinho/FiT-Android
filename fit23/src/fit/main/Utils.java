@@ -22,7 +22,8 @@ import org.xml.sax.SAXException;
  */
 public class Utils {
 
-	static String server = "http://fitec.heroku.com/";
+	static String server = "http://fitec.heroku.com/api/";
+	
 	
 	/**
 	 * 
