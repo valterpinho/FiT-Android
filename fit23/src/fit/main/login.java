@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,22 +16,17 @@ import android.widget.EditText;
 public class login extends Activity {
 
 	EditText nsocio, passw;
-	Button login;
-
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.login);
-
-		Log.e("tag", "here!");
 		
 		//adiciona listener ao botão login
-		login = (Button) findViewById(R.id.btn_login);
+		Button login = (Button) findViewById(R.id.btn_login);
 		login.setOnClickListener(btn_login_listener);
-		
-		Log.e("tag", "here2!");
 		
 		//caixas de texto
 		nsocio = (EditText) findViewById(R.id.txt_nsocio);
@@ -45,8 +39,6 @@ public class login extends Activity {
 			//obtem e verifica validade dos dados de login
 			String str_nsocio = nsocio.getText().toString();
 			String str_passw = passw.getText().toString();
-			
-			//Utils.setCookies();
 			
 			String extension = "sessions.xml";
 			String rNode = "hash";

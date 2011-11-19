@@ -5,12 +5,10 @@
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="8" />
     
-      <uses-permission
-        android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.INTERNET" />
 
     <application android:icon="@drawable/plano_treino" android:label="@string/app_name">
-        <activity android:name=".login"
-                  android:label="@string/app_name">
+        <activity android:name=".login" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,6 +19,7 @@
         <activity android:name=".plano_treino" android:label="@string/app_name"></activity>
         <activity android:name=".listar_planos" android:label="@string/app_name"></activity>
         <activity android:name=".perfil" android:label="@string/app_name"></activity>
+        <activity android:name=".editarPerfil" android:label="@string/app_name"></activity>
         <activity android:name=".list_notif" android:label="@string/app_name"></activity>
         <activity android:name=".ver_notif" android:label="@string/app_name"></activity>
 

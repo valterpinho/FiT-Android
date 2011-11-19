@@ -24,7 +24,7 @@ public class Utils {
 
 	static String server = "http://fitec.heroku.com/api/";
 	
-	
+	static int tries = 0;
 	/**
 	 * 
 	 * @param requestType GET, POST,...
@@ -83,12 +83,33 @@ public class Utils {
 			return response;
 		}		
 		
-		response = parse(conn.getInputStream(), rootNode, respFields);
+		if(tries == 0){
+			response = parse(conn.getInputStream(), rootNode, respFields);
+		}
+		else
+			response.add(inputToString(conn));
 		
 		conn.disconnect();
 		
 		return response;
-	}	
+	}
+	
+	static String inputToString(HttpURLConnection conn) throws IOException{
+		
+		int x = 0;
+		StringBuffer res = new StringBuffer();
+	    while(true)
+	    {
+	        x = conn.getInputStream().read();
+	        
+	        if (x == -1)
+	            break;
+	        
+	        res.append((char) x);
+	    }
+	    
+	    return res.toString();
+	}
 
 	/**
 	 * Devolve o valor de um campo através da sua tag identificadora

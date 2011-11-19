@@ -28,6 +28,4 @@
                 android:layout_height="wrap_content" >
 </ListView>
         </LinearLayout>
-
-    <Button android:layout_gravity="center_horizontal" android:id="@+id/button1" android:layout_height="wrap_content" android:text="Requisitar Novo Plano" android:layout_width="wrap_content"></Button>
 </LinearLayout>

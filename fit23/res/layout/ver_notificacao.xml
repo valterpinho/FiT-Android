@@ -4,6 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:weightSum="1" >
+   
       <TableLayout
         android:id="@+id/tableLayout1"
         android:layout_width="fill_parent"
@@ -33,6 +34,11 @@
         </TableRow>
         </TableLayout>
 
+	<ScrollView 
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:layout_weight="1">  
+
     <TableLayout
         android:id="@+id/tableLayout1"
         android:layout_width="fill_parent"
@@ -55,5 +61,5 @@
         </TableRow>
         
     </TableLayout>
-
+</ScrollView> 
 </LinearLayout>

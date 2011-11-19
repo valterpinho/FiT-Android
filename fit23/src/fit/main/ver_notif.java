@@ -1,7 +1,5 @@
 package fit.main;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
