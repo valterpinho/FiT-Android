@@ -4,19 +4,20 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class perfil extends Activity {
 
-	int userID;
+	String userID;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
 		
-		userID = getIntent().getExtras().getInt("user-id");
+		userID = getIntent().getExtras().getString("user-id");		
 		
 		setContentView(R.layout.perfil);
 		getInfo();
@@ -27,7 +28,11 @@ public class perfil extends Activity {
 			try {
 				
 				String s[] = {"datanascimento", "email", "morada", "nome", "telefone"};
-				ArrayList<String> res = Utils.GET("api/users/" + userID + ".xml", "user", s);
+				String fields[] = {"token"};
+				String values[] = {""+userID};
+				ArrayList<String> res = Utils.request("GET", "api/users.xml", "user", s, fields, values);
+				
+				Log.e("RES LENGTH", ""+res.size());
 				
 				TextView tv_datanasc =(TextView)findViewById(R.id.tv_data_nasc);
 	        	TextView tv_email =(TextView)findViewById(R.id.tv_email);

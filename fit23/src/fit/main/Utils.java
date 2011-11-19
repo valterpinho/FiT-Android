@@ -4,9 +4,6 @@ package fit.main;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,8 +16,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import android.util.Log;
-
 /**
  *
  * @author Valter Pinho
@@ -29,56 +24,58 @@ public class Utils {
 
 	static String server = "http://fitec.heroku.com/";
 	
-	public static void setCookies(){
-		CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
-	}
-
-	public static ArrayList<String> GET(String extension, String rootNode, String[] fields) throws ParserConfigurationException, SAXException, IOException{
-
-		URL url = new URL(server + extension);
-		HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-		ArrayList<String> solution = new ArrayList<String>();
-
-		if(connection.getResponseCode() == 200){
-
-			solution = parse(connection.getInputStream(), rootNode, fields);
-		}
-		else{
-
-			Log.e("Error: Response code ", ""+ connection.getResponseCode());
-		}             
-		return solution;
-	}
-	
-	public static ArrayList<String> POST(String extension, String rootNode, String[] respFields, String[] fields, String[] values) throws ParserConfigurationException, SAXException, IOException{
+	/**
+	 * 
+	 * @param requestType GET, POST,...
+	 * @param extension path extension (/sessions.xml)
+	 * @param rootNode xml root node
+	 * @param respFields xml fields we want to get in the response
+	 * @param fields fields to pass as arguments on a request
+	 * @param values value matching each field declared on the variable fields
+	 * @return a string with the content requested on respFields
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
+	public static ArrayList<String> request(String requestType, String extension, String rootNode, String[] respFields, String[] fields, String[] values) throws ParserConfigurationException, SAXException, IOException{
 		ArrayList<String> response = new ArrayList<String>();
-	
-		
-		URL url = new URL(server + extension);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		String charset = "UTF-8";
-		
-		conn.setDoOutput(true);
-		conn.setDoInput(true);
-		conn.setUseCaches(false);
-		conn.setAllowUserInteraction(false);
-		
-		conn.setRequestProperty("Accept-Charset", charset);
-		conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset="+charset);
-		
-		conn.setRequestMethod("POST");
-		
 		String query = "";
 		
 		for(int i = 0; i < fields.length; i++)
-			query += "&" + fields[i] + "=" + values[i];
+			if(i==0)
+				query += fields[i] + "=" + values[i];
+			else
+				query += "&" + fields[i] + "=" + values[i];		
 		
-		query.substring(1);
+		URL url = null;
 		
-		// Create the form content
-		OutputStream out = conn.getOutputStream();
-		out.write(query.getBytes(charset));
-		out.close();
+		if(fields.length > 0)
+			url = new URL(server + extension + "?" + query);
+		else
+			url = new URL(server + extension);
+		
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		
+		
+		if(requestType.equals("POST")){
+			
+			String charset = "UTF-8";
+			
+			conn.setDoOutput(true);
+			conn.setDoInput(true);
+			conn.setUseCaches(false);
+			conn.setAllowUserInteraction(false);
+			
+			conn.setRequestProperty("Accept-Charset", charset);
+			conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset="+charset);
+			
+			conn.setRequestMethod(requestType);
+			
+			// Create the form content
+			OutputStream out = conn.getOutputStream();
+			out.write(query.getBytes(charset));
+			out.close();
+		}
 		
 		if (conn.getResponseCode() != 200) {
 			response.add(""+conn.getResponseCode());
@@ -90,7 +87,7 @@ public class Utils {
 		conn.disconnect();
 		
 		return response;
-	}
+	}	
 
 	/**
 	 * Devolve o valor de um campo através da sua tag identificadora

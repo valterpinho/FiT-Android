@@ -12,7 +12,6 @@ import org.xml.sax.SAXException;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,7 +23,8 @@ import android.widget.Toast;
 public class plano_treino extends Activity {
 	/** Called when the activity is first created. */
 	
-	int userID;
+	//userID corresponde ao token
+	String userID;
 	Intent i = null;
 	ArrayList<String> res = null;
 	
@@ -34,8 +34,8 @@ public class plano_treino extends Activity {
 
 		Bundle bu = getIntent().getExtras();
 		
-		userID = bu.getInt("user-id");
-		
+		userID = bu.getString("user-id");
+
 		res = bu.getStringArrayList("planos");
 
 		setContentView(R.layout.plano_treino);
@@ -71,7 +71,7 @@ public class plano_treino extends Activity {
 				
 				Bundle b_plan = new Bundle();
 				b_plan.putStringArrayList("planos", res);
-				b_plan.putInt("user-id", userID);
+				b_plan.putString("user-id", userID);
 
 				i.putExtras(b_plan);
 
@@ -112,7 +112,6 @@ public class plano_treino extends Activity {
         	}
         	else{ //mostrar o plano mais actualizado
 
-        		Log.e("entra",""+res.get(1));
 	        		tv_data.setText("Data: " + res.get(1));
 	        		tv_altura.setText("Altura: " + res.get(2) + " cm");
 	        		tv_peso.setText("Peso: " + res.get(3) + " Kg");
@@ -120,8 +119,11 @@ public class plano_treino extends Activity {
         		
         	}
         		String exercicios[] = {"nome", "maquina", "tipo"};
+				String fields[] = {};
+				String values[] = {};
+				ArrayList<String> exercs = Utils.request("GET", "api/planos/" + id_plano + ".xml", "exercicio", exercicios, fields, values);
         		
-        		ArrayList<String> exercs = Utils.GET("users/" + userID + "/planos/" + id_plano + ".xml", "exercicio", exercicios);
+        		//ArrayList<String> exercs = Utils.GET("users/" + userID + "/planos/" + id_plano + ".xml", "exercicio", exercicios);
         		
         		//o array passado contem em cada posicao os dois conteudos: item e subitem
         		ArrayList<ListMenuItem> lmi = new ArrayList<ListMenuItem>();

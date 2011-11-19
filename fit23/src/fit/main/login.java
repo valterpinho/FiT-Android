@@ -42,16 +42,17 @@ public class login extends Activity {
 			String str_nsocio = nsocio.getText().toString();
 			String str_passw = passw.getText().toString();
 			
-			Utils.setCookies();
+			//Utils.setCookies();
 			
 			String extension = "api/sessions.xml";
 			String rNode = "hash";
 			String[] fields = {"email", "password"};
-			String[] values = {str_nsocio, str_passw};
-			String[] responseFields = {"session-id", "user-id"};
+			//String[] values = {str_nsocio, str_passw};
+			String[] values = {"jpenedos@gmail.com", "123456"};
+			String[] responseFields = {"token"};
 			ArrayList<String> response = null;
 			try {
-				response = Utils.POST(extension, rNode, responseFields, fields, values);
+				response = Utils.request("POST",extension, rNode, responseFields, fields, values);
 				
 				if(response.get(0).equals("149")){
 					AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
@@ -77,7 +78,7 @@ public class login extends Activity {
 				
 				if(response != null){
 					Bundle b = new Bundle();
-					b.putInt("user-id", Integer.parseInt(response.get(1)));
+					b.putString("user-id", response.get(0));
 					i.putExtras(b);
 				}
 				

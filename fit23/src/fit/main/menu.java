@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -33,9 +32,8 @@ public class menu extends Activity {
 			Intent i = new Intent(menu.this, perfil.class);
 			
 			Bundle b = new Bundle();
-			b.putInt("user-id", (getIntent().getExtras()).getInt("user-id"));
+			b.putString("user-id", (getIntent().getExtras()).getString("user-id"));
 			i.putExtras(b);
-
 			
 			startActivity(i);
 		}
@@ -47,21 +45,23 @@ public class menu extends Activity {
 			
 			Bundle b = new Bundle();
 			
-			int userID = (getIntent().getExtras()).getInt("user-id");
+			String userID = (getIntent().getExtras()).getString("user-id");
 
     		String s[] = {"id", "data", "altura", "peso"};
     		try {
-    			ArrayList<String> res = Utils.GET("api/users/" + userID + "/planos.xml", "plano", s);
+    			
+				String fields[] = {"token"};
+				String values[] = {""+userID};
+				ArrayList<String> res = Utils.request("GET", "api/planos.xml", "plano", s, fields, values);    			
 
     			if(res.size() > 0){
     				
-    				b.putInt("user-id", userID);
+    				b.putString("user-id", userID);
     				b.putStringArrayList("planos", res);
     				i.putExtras(b);
     				
     				startActivity(i);
     			} else{
-    				Log.e("cenas", "null");
     				Toast t = Toast.makeText(getApplicationContext(),
     						"Não existem planos disponíveis!",
     						Toast.LENGTH_SHORT);
