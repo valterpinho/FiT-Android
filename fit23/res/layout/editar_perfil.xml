@@ -56,7 +56,8 @@
             <EditText
                 android:id="@+id/et_nome"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:singleLine="true" >
 
                 <requestFocus />
             </EditText>
@@ -79,7 +80,8 @@
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
         </TableRow>
 
         <TableRow
@@ -98,7 +100,8 @@
             <EditText
                 android:id="@+id/et_data_nasc"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
         </TableRow>
 
         <TableRow
@@ -117,7 +120,8 @@
             <EditText
                 android:id="@+id/et_telefone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
         </TableRow>
 
         <TableRow
@@ -135,7 +139,8 @@
             <EditText
                 android:id="@+id/et_morada"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
         </TableRow>
     </TableLayout>
 

@@ -67,7 +67,7 @@ public class menu extends Activity {
     			
 				String fields[] = {"token"};
 				String values[] = {""+userID};
-				ArrayList<String> res = Utils.request("GET", "planos.xml", "plano", s, fields, values);    			
+				ArrayList<String> res = Utils.GET("planos.xml", "plano", s, fields, values);    			
 
     			if(res.size() > 0){
     				

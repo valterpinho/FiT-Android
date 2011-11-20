@@ -48,7 +48,7 @@ public class login extends Activity {
 			String[] responseFields = {"token"};
 			ArrayList<String> response = null;
 			try {
-				response = Utils.request("POST",extension, rNode, responseFields, fields, values);
+				response = Utils.POST(extension, rNode, responseFields, fields, values);
 				
 				if(response.get(0).equals("149")){
 					AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);

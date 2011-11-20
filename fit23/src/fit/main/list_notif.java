@@ -37,7 +37,7 @@ public class list_notif extends Activity {
 		String values[] = {""+userID}; //token
 		
 		try {
-			res = Utils.request("GET","notificacaos.xml" , "notificacaos", respFields, fields, values);
+			res = Utils.GET("notificacaos.xml" , "notificacaos", respFields, fields, values);
 		} catch (ParserConfigurationException e1) {
 			e1.printStackTrace();
 		} catch (SAXException e1) {

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -41,15 +42,15 @@ public class editarPerfil extends Activity {
 	
 	private OnClickListener btn_save_listener = new OnClickListener() {
 		public void onClick(View v) {
-						
-			String extension = "users/update.xml";
-			String rNode = "hash";
+			
+			String extension = "users/edit.xml";
+			String rNode = "edit";
 			String[] fields = {"token", "datanascimento", "email", "morada", "nome", "telefone"};
 			String[] values = {userID, et_datanasc.getText().toString(), et_email.getText().toString(), et_morada.getText().toString(), et_nome.getText().toString(), et_telefone.getText().toString()};
 			String[] responseFields = {"message"};
 			ArrayList<String> response = null;
 			try {
-				response = Utils.request("POST",extension, rNode, responseFields, fields, values);
+				response = Utils.POST(extension, rNode, responseFields, fields, values);
 				
 				if(response.get(0).equals("success")){
 					

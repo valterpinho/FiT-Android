@@ -16,18 +16,18 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.util.Log;
+
 /**
  *
  * @author Valter Pinho
  */
 public class Utils {
 
-	static String server = "http://fitec.heroku.com/api/";
-	
-	static int tries = 0;
+	//static String server = "http://fitec.heroku.com/api/";
+	static String server = "http://192.168.55.224/api/";
 	/**
 	 * 
-	 * @param requestType GET, POST,...
 	 * @param extension path extension (/sessions.xml)
 	 * @param rootNode xml root node
 	 * @param respFields xml fields we want to get in the response
@@ -38,7 +38,7 @@ public class Utils {
 	 * @throws SAXException
 	 * @throws IOException
 	 */
-	public static ArrayList<String> request(String requestType, String extension, String rootNode, String[] respFields, String[] fields, String[] values) throws ParserConfigurationException, SAXException, IOException{
+	public static ArrayList<String> GET(String extension, String rootNode, String[] respFields, String[] fields, String[] values) throws ParserConfigurationException, SAXException, IOException{
 		ArrayList<String> response = new ArrayList<String>();
 		String query = "";
 		
@@ -57,42 +57,72 @@ public class Utils {
 		
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		
+		if (conn.getResponseCode() != 200) {
+			Log.e("RESPONSE ERROR: ", ""+conn.getResponseCode());
+			Log.e("URL", conn.getURL().toString());
+			response.add(""+conn.getResponseCode());
+			return response;
+		}		
 		
-		if(requestType.equals("POST")){
-			
-			String charset = "UTF-8";
-			
-			conn.setDoOutput(true);
-			conn.setDoInput(true);
-			conn.setUseCaches(false);
-			conn.setAllowUserInteraction(false);
-			
-			conn.setRequestProperty("Accept-Charset", charset);
-			conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset="+charset);
-			
-			conn.setRequestMethod(requestType);
-			
-			// Create the form content
-			OutputStream out = conn.getOutputStream();
-			out.write(query.getBytes(charset));
-			out.close();
-		}
+		response = parse(conn.getInputStream(), rootNode, respFields);
+		conn.disconnect();
+		
+		return response;
+	}
+	
+	/**
+	 * 
+	 * @param extension path extension (/sessions.xml)
+	 * @param rootNode xml root node
+	 * @param respFields xml fields we want to get in the response
+	 * @param fields fields to pass as arguments on a request
+	 * @param values value matching each field declared on the variable fields
+	 * @return a string with the content requested on respFields
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
+	public static ArrayList<String> POST(String extension, String rootNode, String[] respFields, String[] fields, String[] values) throws ParserConfigurationException, SAXException, IOException{
+		ArrayList<String> response = new ArrayList<String>();
+	
+		
+		URL url = new URL(server + extension);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		String charset = "UTF-8";
+		
+		conn.setDoOutput(true);
+		conn.setDoInput(true);
+		conn.setUseCaches(false);
+		conn.setAllowUserInteraction(false);
+		
+		conn.setRequestProperty("Accept-Charset", charset);
+		conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset="+charset);
+		
+		conn.setRequestMethod("POST");
+		
+		String query = "";
+		
+		for(int i = 0; i < fields.length; i++)
+			query += "&" + fields[i] + "=" + values[i];
+		
+		query.substring(1);
+		
+		// Create the form content
+		OutputStream out = conn.getOutputStream();
+		out.write(query.getBytes(charset));
+		out.close();
 		
 		if (conn.getResponseCode() != 200) {
 			response.add(""+conn.getResponseCode());
 			return response;
 		}		
 		
-		if(tries == 0){
-			response = parse(conn.getInputStream(), rootNode, respFields);
-		}
-		else
-			response.add(inputToString(conn));
+        response = parse(conn.getInputStream(), rootNode, respFields);
 		
 		conn.disconnect();
 		
 		return response;
-	}
+	}	
 	
 	static String inputToString(HttpURLConnection conn) throws IOException{
 		
@@ -124,6 +154,7 @@ public class Utils {
 
 		return nValue.getNodeValue();
 	}
+		
 	
 	public static ArrayList<String> parse(InputStream is, String rootNode, String[] fields) throws SAXException, IOException, ParserConfigurationException{
 		

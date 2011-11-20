@@ -121,7 +121,7 @@ public class plano_treino extends Activity {
         		String exercicios[] = {"nome", "maquina", "tipo"};
 				String fields[] = {};
 				String values[] = {};
-				ArrayList<String> exercs = Utils.request("GET", "planos/" + id_plano + ".xml", "exercicio", exercicios, fields, values);
+				ArrayList<String> exercs = Utils.GET("planos/" + id_plano + ".xml", "exercicio", exercicios, fields, values);
         		
         		//ArrayList<String> exercs = Utils.GET("users/" + userID + "/planos/" + id_plano + ".xml", "exercicio", exercicios);
         		

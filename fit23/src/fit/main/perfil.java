@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -63,9 +62,7 @@ public class perfil extends Activity {
 			String s[] = {"datanascimento", "email", "morada", "nome", "telefone"};
 			String fields[] = {"token"};
 			String values[] = {""+userID};
-			res = Utils.request("GET", "users.xml", "user", s, fields, values);
-
-			Log.e("RES LENGTH", ""+res.size());
+			res = Utils.GET("users.xml", "user", s, fields, values);
 
 			TextView tv_datanasc =(TextView)findViewById(R.id.tv_data_nasc);
 			TextView tv_email =(TextView)findViewById(R.id.tv_email);
