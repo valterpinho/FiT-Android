@@ -24,8 +24,8 @@ import android.util.Log;
  */
 public class Utils {
 
-	//static String server = "http://fitec.heroku.com/api/";
-	static String server = "http://192.168.55.224/api/";
+	static String server = "http://fitec.heroku.com/api/";
+	//static String server = "http://192.168.55.224/api/";
 	/**
 	 * 
 	 * @param extension path extension (/sessions.xml)

@@ -28,12 +28,13 @@ public final class R {
     public static final class id {
         public static final int btn_login=0x7f060019;
         public static final int btn_save_changes=0x7f060011;
-        public static final int editar=0x7f060037;
+        public static final int editar=0x7f060038;
         public static final int et_data_nasc=0x7f06000c;
         public static final int et_email=0x7f060009;
         public static final int et_morada=0x7f060010;
         public static final int et_nome=0x7f060006;
         public static final int et_telefone=0x7f06000e;
+        public static final int foto=0x7f060031;
         public static final int imageButton1=0x7f06001b;
         public static final int imageButton2=0x7f06001d;
         public static final int imageButton3=0x7f060020;
@@ -52,13 +53,13 @@ public final class R {
         public static final int layout_plano_alimentar=0x7f060022;
         public static final int layout_plano_treino=0x7f06001f;
         public static final int linearLayout1=0x7f060014;
-        public static final int lv_exercicios=0x7f060034;
+        public static final int lv_exercicios=0x7f060035;
         public static final int lv_notifs=0x7f060015;
         public static final int lv_planos=0x7f060016;
         public static final int maquina_tipo=0x7f060013;
         public static final int nome=0x7f060012;
-        public static final int novo_plano=0x7f060039;
-        public static final int planos_anteriores=0x7f060038;
+        public static final int novo_plano=0x7f06003a;
+        public static final int planos_anteriores=0x7f060039;
         public static final int tableLayout1=0x7f060000;
         public static final int tableRow1=0x7f060001;
         public static final int tableRow2=0x7f060004;
@@ -72,16 +73,16 @@ public final class R {
         public static final int textView6=0x7f06002a;
         public static final int textView7=0x7f06002d;
         public static final int textView8=0x7f060030;
-        public static final int tv_alturaplano=0x7f060032;
-        public static final int tv_conteudo=0x7f060036;
+        public static final int tv_alturaplano=0x7f060033;
+        public static final int tv_conteudo=0x7f060037;
         public static final int tv_data_nasc=0x7f06000b;
-        public static final int tv_dataplano=0x7f060031;
+        public static final int tv_dataplano=0x7f060032;
         public static final int tv_email=0x7f060008;
         public static final int tv_morada=0x7f06000f;
         public static final int tv_nome=0x7f060005;
-        public static final int tv_pesoplano=0x7f060033;
+        public static final int tv_pesoplano=0x7f060034;
         public static final int tv_telefone=0x7f06000d;
-        public static final int tv_titulo=0x7f060035;
+        public static final int tv_titulo=0x7f060036;
         public static final int txt_nsocio=0x7f060017;
         public static final int txt_passw=0x7f060018;
     }
