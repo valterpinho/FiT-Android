@@ -7,7 +7,7 @@
 		<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content"
 			android:layout_height="wrap_content">
 
-			<ImageView android:id="@+id/imageView1"
+			<ImageView android:id="@+id/foto"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:paddingLeft="10dip" android:src="@drawable/plano_treino">
 			</ImageView>
@@ -19,13 +19,6 @@
 			</TextView>
 		</TableRow>
 	</TableLayout>
-
-
-	<ImageView android:src="@drawable/icon" android:id="@+id/foto"
-		android:scaleType="centerInside" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center">
-	</ImageView>
-
 
 	<ScrollView android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_weight="1">

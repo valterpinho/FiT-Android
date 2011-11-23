@@ -16,6 +16,17 @@ public class menu extends Activity {
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
 		
+		Bundle b1 = getIntent().getExtras();
+		String message = b1.getString("message");
+		
+		if(message != null){
+			Toast t = Toast.makeText(getApplicationContext(),
+					message,
+					Toast.LENGTH_SHORT);
+			t.show();
+			
+		}
+		
 		setContentView(R.layout.menu);    
 
 		LinearLayout plano_treino = (LinearLayout) findViewById(R.id.layout_plano_treino);

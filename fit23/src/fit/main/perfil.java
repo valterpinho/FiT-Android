@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -63,6 +64,34 @@ public class perfil extends Activity {
 		return false;
 	}
 
+	public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+
+		int width = bm.getWidth();
+
+		int height = bm.getHeight();
+
+		float scaleWidth = ((float) newWidth) / width;
+
+		float scaleHeight = ((float) newHeight) / height;
+
+		// create a matrix for the manipulation
+
+		Matrix matrix = new Matrix();
+
+		// resize the bit map
+
+		matrix.postScale(scaleWidth, scaleHeight);
+
+		// recreate the new Bitmap
+
+		Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+		return resizedBitmap;
+
+	}
+
+	
+
 	public void getInfo() {
 		try {
 
@@ -86,8 +115,8 @@ public class perfil extends Activity {
 			//coloca a foto do socio na imageview atraves do url recebido no get
 			try {
 				ImageView i = (ImageView)findViewById(R.id.foto);
-				Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(res.get(5)).getContent());
-				i.setImageBitmap(bitmap); 
+				Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(res.get(5)).getContent());				
+				i.setImageBitmap(getResizedBitmap(bitmap, 100, 100)); 
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

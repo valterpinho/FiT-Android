@@ -118,7 +118,7 @@ public class plano_treino extends Activity {
 	        		id_plano = Integer.parseInt(res.get(0)); //assume planos ordenados 
         		
         	}
-        		String exercicios[] = {"nome", "maquina", "tipo"};
+        		String exercicios[] = {"nome", "maquina", "tipo", "peso", "series", "repeticoes"};
 				String fields[] = {};
 				String values[] = {};
 				ArrayList<String> exercs = Utils.GET("planos/" + id_plano + ".xml", "exercicio", exercicios, fields, values);
@@ -127,8 +127,15 @@ public class plano_treino extends Activity {
         		
         		//o array passado contem em cada posicao os dois conteudos: item e subitem
         		ArrayList<ListMenuItem> lmi = new ArrayList<ListMenuItem>();
-        		for(int i = 0; i < exercs.size(); i+=3){
-        			ListMenuItem temp = new ListMenuItem(exercs.get(i), "Máquina: " + exercs.get(i+1) + "   |   Tipo: " + exercs.get(i+2));
+        		for(int i = 0; i < exercs.size(); i+=6){
+        			ListMenuItem temp = null;
+        			
+        			if(exercs.get(i+2).equals("Musculação"))
+        				temp = new ListMenuItem(exercs.get(i), "Máquina: " + exercs.get(i+1) + "   |   Tipo: " + exercs.get(i+2),
+        									"Peso: " + exercs.get(i+3) + "   |   Séries: "+ exercs.get(i+4) + "   |   Repetições: " + exercs.get(i+5));
+        			else
+        				temp = new ListMenuItem(exercs.get(i), "Máquina: " + exercs.get(i+1) + "   |   Tipo: " + exercs.get(i+2),
+								"Velocidade/Nível: " + exercs.get(i+3) + "   |   Duração: "+ exercs.get(i+4));
         			lmi.add(temp);
         		}
         	

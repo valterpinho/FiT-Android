@@ -43,8 +43,8 @@ public class login extends Activity {
 			String extension = "sessions.xml";
 			String rNode = "hash";
 			String[] fields = {"email", "password"};
-			String[] values = {str_nsocio, str_passw};
-			//String[] values = {"valter.pinho0@gmail.com", "123456"};
+			//String[] values = {str_nsocio, str_passw};
+			String[] values = {"jpenedos@gmail.com", "123456"};
 			String[] responseFields = {"token"};
 			ArrayList<String> response = null;
 			try {

@@ -31,6 +31,7 @@ public class list_exercs extends ArrayAdapter<ListMenuItem> {
 		if (ex != null ) {
 			TextView item = (TextView) v.findViewById(R.id.nome);
 			TextView subitem = (TextView) v.findViewById(R.id.maquina_tipo);
+			TextView subitem2 = (TextView) v.findViewById(R.id.subitem2);
 
 			if (item != null) {
 				item.setText(ex.item);
@@ -38,6 +39,10 @@ public class list_exercs extends ArrayAdapter<ListMenuItem> {
 
 			if(subitem != null) {
 				subitem.setText(ex.subitem);
+			}
+			
+			if(subitem2 != null) {
+				subitem2.setText(ex.subitem2);
 			}
 		}
 		return v;

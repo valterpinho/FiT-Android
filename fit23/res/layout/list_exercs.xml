@@ -12,5 +12,8 @@
 		<TextView android:id="@+id/maquina_tipo"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:layout_marginLeft="10px" android:textColor="#0099CC" />
+		<TextView android:id="@+id/subitem2"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_marginLeft="10px" android:textColor="#0099CC" />
 	</LinearLayout>
 </LinearLayout>
