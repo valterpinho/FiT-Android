@@ -15,7 +15,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
 import android.util.Log;
 
 /**
@@ -180,4 +179,5 @@ public class Utils {
 		}
 		return solution;
 	}
+	
 }

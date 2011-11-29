@@ -5,8 +5,11 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,6 +52,12 @@ public class login extends Activity {
 		cb_remember = (CheckBox) findViewById(R.id.cb_remember);
 
 	}
+	
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null;
+	}
 
 	private OnClickListener btn_login_listener = new OnClickListener() {
 		public void onClick(View v) {
@@ -81,41 +90,54 @@ public class login extends Activity {
 			//String[] values = {"jpenedos@gmail.com", "123456"};
 			String[] responseFields = {"token"};
 			ArrayList<String> response = null;
-			try {
-				response = Utils.POST(extension, rNode, responseFields, fields, values);
+			
+			//verifica conexao Internet disponivel
+			if(isNetworkAvailable()){
 				
-				if(response.get(0).equals("149")){
-					AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
-					infoResultado.setTitle("Erro");
-					infoResultado.setMessage("Dados de login inválidos.");
-					infoResultado.setNeutralButton("Ok",null);
-					infoResultado.show();
-					response.clear();
+				try {
+					response = Utils.POST(extension, rNode, responseFields, fields, values);
+					
+					if(response.get(0).equals("149")){
+						AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
+						infoResultado.setTitle("Erro");
+						infoResultado.setMessage("Dados de login inválidos.");
+						infoResultado.setNeutralButton("Ok",null);
+						infoResultado.show();
+						response.clear();
+						
+					}
+					else if(Integer.parseInt(response.get(0)) > 0){
+	
+						AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
+						infoResultado.setTitle("Erro");
+						infoResultado.setMessage("A aplicação falhou!");
+						infoResultado.setNeutralButton("Ok",null);
+						infoResultado.show();
+						response.clear();
+					}					
+				} catch (NumberFormatException e){
+					
+					Intent i = new Intent(login.this, menu.class);
+					
+					if(response != null){
+						Bundle b = new Bundle();
+						b.putString("user-id", response.get(0));
+						i.putExtras(b);
+					}
+					
+					startActivity(i);
+					
+				} catch (Exception e){
 					
 				}
-				else if(Integer.parseInt(response.get(0)) > 0){
-
-					AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
-					infoResultado.setTitle("Erro");
-					infoResultado.setMessage("A aplicação falhou!");
-					infoResultado.setNeutralButton("Ok",null);
-					infoResultado.show();
-					response.clear();
-				}					
-			} catch (NumberFormatException e){
-				
-				Intent i = new Intent(login.this, menu.class);
-				
-				if(response != null){
-					Bundle b = new Bundle();
-					b.putString("user-id", response.get(0));
-					i.putExtras(b);
-				}
-				
-				startActivity(i);
-				
-			} catch (Exception e){
-				
+			}
+			else{
+				//mostra informacao de ligacao internet nao disponivel
+				AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
+				infoResultado.setTitle("Erro");
+				infoResultado.setMessage("Ligação à Internet não disponível!");
+				infoResultado.setNeutralButton("Ok",null);
+				infoResultado.show();
 			}
 		}
 	};
