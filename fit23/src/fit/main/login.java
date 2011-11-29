@@ -6,16 +6,24 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 
 public class login extends Activity {
 
 	EditText nsocio, passw;
+	CheckBox cb_remember;
+	
+	public static final String PREFS_NAME = "MyPrefsFile";
+	private static final String PREF_USERNAME = "username";
+	private static final String PREF_PASSWORD = "password";
+	SharedPreferences pref;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -31,6 +39,14 @@ public class login extends Activity {
 		//caixas de texto
 		nsocio = (EditText) findViewById(R.id.txt_nsocio);
 		passw = (EditText) findViewById(R.id.txt_passw);
+		
+		//se existirem dados guardados anteriormente
+		pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+		nsocio.setText(pref.getString(PREF_USERNAME, null));
+		passw.setText(pref.getString(PREF_PASSWORD, null));
+		
+		//checkbox remember
+		cb_remember = (CheckBox) findViewById(R.id.cb_remember);
 
 	}
 
@@ -40,11 +56,29 @@ public class login extends Activity {
 			String str_nsocio = nsocio.getText().toString();
 			String str_passw = passw.getText().toString();
 			
+			//verifica se a checkbox remember esta activa e guarda os dados de login
+			if(cb_remember.isChecked()){
+				getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+		        .edit()
+		        .putString(PREF_USERNAME, str_nsocio) //guarda dados
+		        .putString(PREF_PASSWORD, str_passw)
+		        .commit();
+			}
+			
+			//apaga dados se unchecked com dados do socio anteriormente guardados
+			if(!cb_remember.isChecked() && str_nsocio.equals(pref.getString(PREF_USERNAME, null))){
+				getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+		        .edit()
+		        .putString(PREF_USERNAME, "") //apaga dados
+		        .putString(PREF_PASSWORD, "")
+		        .commit();
+			}
+			
 			String extension = "sessions.xml";
 			String rNode = "hash";
 			String[] fields = {"email", "password"};
-			//String[] values = {str_nsocio, str_passw};
-			String[] values = {"jpenedos@gmail.com", "123456"};
+			String[] values = {str_nsocio, str_passw};
+			//String[] values = {"jpenedos@gmail.com", "123456"};
 			String[] responseFields = {"token"};
 			ArrayList<String> response = null;
 			try {
