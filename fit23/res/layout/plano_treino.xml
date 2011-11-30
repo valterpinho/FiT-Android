@@ -10,13 +10,13 @@
             <TextView android:layout_width="wrap_content" android:id="@+id/textView1" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:text="Plano de Treino" android:layout_gravity="center_vertical" android:paddingLeft="20dip"></TextView>
         </TableRow>
         <TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content" android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="data" android:id="@+id/tv_dataplano"></TextView>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:id="@+id/tv_dataplano"></TextView>
         </TableRow>
         <TableRow android:id="@+id/tableRow3" android:layout_width="wrap_content" android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tv_alturaplano" android:text="altura"></TextView>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tv_alturaplano" android:text=""></TextView>
         </TableRow>
         <TableRow android:id="@+id/tableRow4" android:layout_width="wrap_content" android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tv_pesoplano" android:text="peso"></TextView>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tv_pesoplano" android:text=""></TextView>
         </TableRow>
     </TableLayout>
     <TextView android:id="@+id/textView5" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Exercícios:" android:paddingTop="10dip"></TextView>

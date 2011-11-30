@@ -36,7 +36,7 @@ public class listar_planos extends Activity {
 		Bundle bu = getIntent().getExtras();
 
 		res = bu.getStringArrayList("planos");
-		
+
 		userID = bu.getInt("user-id");
 
 		setContentView(R.layout.listar_planos);
@@ -108,44 +108,44 @@ public class listar_planos extends Activity {
 
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-					
+
 					Bundle b = findByDate(""+lv_planos.getItemAtPosition(pos));
-					
+
 					Intent i = new Intent(listar_planos.this, plano_treino.class);
-					
+
 					i.putExtras(b);
-					
+
 					startActivity(i);
-					
+
 				}
 
-			    }
-			);
+			}
+					);
 
 		} catch (Exception ex) {
 			Logger.getLogger(listar_planos.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	public Bundle findByDate(String date){
-		
+
 		Bundle b = new Bundle();
-		
+
 		for(int i=1; i < res.size(); i+=4){
 			if(res.get(i).equals(date)){
-				
+
 				b.putString("data", date);
 				b.putString("planoID", res.get(i-1));
 				b.putString("altura", res.get(i+1));
 				b.putString("peso", res.get(i+2));
-				
+
 				b.putInt("user-id", userID);
 
 			}	
 		}
-		
+
 		b.putStringArrayList("planos", res);
-		
+
 		return b;
 	}
 }

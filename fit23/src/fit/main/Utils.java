@@ -15,6 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
 import android.util.Log;
 
 /**
@@ -25,6 +26,11 @@ public class Utils {
 
 	static String server = "http://fitec.heroku.com/api/";
 	//static String server = "http://192.168.55.224/api/";
+
+	//progress dialog text messages
+	static String header = "Loading";
+	static String text = "Wait a moment...";
+
 	/**
 	 * 
 	 * @param extension path extension (/sessions.xml)
@@ -40,35 +46,35 @@ public class Utils {
 	public static ArrayList<String> GET(String extension, String rootNode, String[] respFields, String[] fields, String[] values) throws ParserConfigurationException, SAXException, IOException{
 		ArrayList<String> response = new ArrayList<String>();
 		String query = "";
-		
+
 		for(int i = 0; i < fields.length; i++)
 			if(i==0)
 				query += fields[i] + "=" + values[i];
 			else
 				query += "&" + fields[i] + "=" + values[i];		
-		
+
 		URL url = null;
-		
+
 		if(fields.length > 0)
 			url = new URL(server + extension + "?" + query);
 		else
 			url = new URL(server + extension);
-		
+
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		
+
 		if (conn.getResponseCode() != 200) {
 			Log.e("RESPONSE ERROR: ", ""+conn.getResponseCode());
 			Log.e("URL", conn.getURL().toString());
 			response.add(""+conn.getResponseCode());
 			return response;
 		}		
-		
+
 		response = parse(conn.getInputStream(), rootNode, respFields);
 		conn.disconnect();
-		
+
 		return response;
 	}
-	
+
 	/**
 	 * 
 	 * @param extension path extension (/sessions.xml)
@@ -83,61 +89,61 @@ public class Utils {
 	 */
 	public static ArrayList<String> POST(String extension, String rootNode, String[] respFields, String[] fields, String[] values) throws ParserConfigurationException, SAXException, IOException{
 		ArrayList<String> response = new ArrayList<String>();
-	
-		
+
+
 		URL url = new URL(server + extension);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		String charset = "UTF-8";
-		
+
 		conn.setDoOutput(true);
 		conn.setDoInput(true);
 		conn.setUseCaches(false);
 		conn.setAllowUserInteraction(false);
-		
+
 		conn.setRequestProperty("Accept-Charset", charset);
 		conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset="+charset);
-		
+
 		conn.setRequestMethod("POST");
-		
+
 		String query = "";
-		
+
 		for(int i = 0; i < fields.length; i++)
 			query += "&" + fields[i] + "=" + values[i];
-		
+
 		query.substring(1);
-		
+
 		// Create the form content
 		OutputStream out = conn.getOutputStream();
 		out.write(query.getBytes(charset));
 		out.close();
-		
+
 		if (conn.getResponseCode() != 200) {
 			response.add(""+conn.getResponseCode());
 			return response;
 		}		
-		
-        response = parse(conn.getInputStream(), rootNode, respFields);
-		
+
+		response = parse(conn.getInputStream(), rootNode, respFields);
+
 		conn.disconnect();
-		
+
 		return response;
 	}	
-	
+
 	static String inputToString(HttpURLConnection conn) throws IOException{
-		
+
 		int x = 0;
 		StringBuffer res = new StringBuffer();
-	    while(true)
-	    {
-	        x = conn.getInputStream().read();
-	        
-	        if (x == -1)
-	            break;
-	        
-	        res.append((char) x);
-	    }
-	    
-	    return res.toString();
+		while(true)
+		{
+			x = conn.getInputStream().read();
+
+			if (x == -1)
+				break;
+
+			res.append((char) x);
+		}
+
+		return res.toString();
 	}
 
 	/**
@@ -153,12 +159,12 @@ public class Utils {
 
 		return nValue.getNodeValue();
 	}
-		
-	
+
+
 	public static ArrayList<String> parse(InputStream is, String rootNode, String[] fields) throws SAXException, IOException, ParserConfigurationException{
-		
+
 		ArrayList<String> solution = new ArrayList<String>();
-		
+
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(is);
@@ -179,5 +185,4 @@ public class Utils {
 		}
 		return solution;
 	}
-	
 }

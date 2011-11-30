@@ -7,10 +7,14 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +27,7 @@ public class perfil extends Activity {
 
 	String userID;
 	ArrayList<String> res = null;
+	ProgressDialog d;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -31,9 +36,49 @@ public class perfil extends Activity {
 
 		userID = getIntent().getExtras().getString("user-id");		
 
+		d = ProgressDialog.show(this, Utils.header, Utils.text);
+		new getPerfil().execute();
+
 		setContentView(R.layout.perfil);
-		getInfo();
+
 	}
+
+	private class getPerfil extends AsyncTask<Bundle, Integer, Intent> {
+
+		Intent i = null;
+
+		protected Intent doInBackground(Bundle... bundles) {
+
+			getInfo();
+			return null;
+		}	
+
+		private DialogInterface.OnClickListener empty_listener = new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				perfil.this.finish();
+				startActivity(i);
+			}
+		};
+
+		protected void onPostExecute(Intent result) {
+
+			if(res == null){
+				d.dismiss();
+
+				AlertDialog.Builder infoResultado = new AlertDialog.Builder(perfil.this);
+				infoResultado.setTitle("Erro");
+				infoResultado.setMessage("Erro de conexão!");
+				infoResultado.setNegativeButton("OK", empty_listener);
+				infoResultado.show();
+
+			} else
+				setText();
+
+			d.dismiss();
+		}
+	}	
 
 	@Override
 	//inflating our own menu
@@ -90,7 +135,30 @@ public class perfil extends Activity {
 
 	}
 
-	
+	public void setText(){
+		TextView tv_datanasc =(TextView)findViewById(R.id.tv_data_nasc);
+		TextView tv_email =(TextView)findViewById(R.id.tv_email);
+		TextView tv_morada =(TextView)findViewById(R.id.tv_morada);
+		TextView tv_nome =(TextView)findViewById(R.id.tv_nome);
+		TextView tv_telefone =(TextView)findViewById(R.id.tv_telefone);
+
+		tv_datanasc.setText("Data de Nascimento: " + res.get(0));
+		tv_email.setText("E-mail: " + res.get(1));
+		tv_morada.setText("Morada: " + res.get(2));
+		tv_nome.setText("Nome: " + res.get(3));
+		tv_telefone.setText("Telefone: " + res.get(4));
+
+		//coloca a foto do socio na imageview atraves do url recebido no get
+		try {
+			ImageView i = (ImageView)findViewById(R.id.foto);
+			Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(res.get(5)).getContent());				
+			i.setImageBitmap(getResizedBitmap(bitmap, 100, 100)); 
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void getInfo() {
 		try {
@@ -98,31 +166,7 @@ public class perfil extends Activity {
 			String s[] = {"datanascimento", "email", "morada", "nome", "telefone", "foto"};
 			String fields[] = {"token"};
 			String values[] = {""+userID};
-			res = Utils.GET("users.xml", "user", s, fields, values);
-
-			TextView tv_datanasc =(TextView)findViewById(R.id.tv_data_nasc);
-			TextView tv_email =(TextView)findViewById(R.id.tv_email);
-			TextView tv_morada =(TextView)findViewById(R.id.tv_morada);
-			TextView tv_nome =(TextView)findViewById(R.id.tv_nome);
-			TextView tv_telefone =(TextView)findViewById(R.id.tv_telefone);
-
-			tv_datanasc.setText("Data de Nascimento: " + res.get(0));
-			tv_email.setText("E-mail: " + res.get(1));
-			tv_morada.setText("Morada: " + res.get(2));
-			tv_nome.setText("Nome: " + res.get(3));
-			tv_telefone.setText("Telefone: " + res.get(4));
-
-			//coloca a foto do socio na imageview atraves do url recebido no get
-			try {
-				ImageView i = (ImageView)findViewById(R.id.foto);
-				Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(res.get(5)).getContent());				
-				i.setImageBitmap(getResizedBitmap(bitmap, 100, 100)); 
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
+			res = Utils.GET("users.xml", "user", s, fields, values);			
 
 		} catch (Exception e){
 			Toast t = Toast.makeText(getApplicationContext(),

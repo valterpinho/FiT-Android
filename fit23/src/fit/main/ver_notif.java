@@ -7,7 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ver_notif extends Activity {
-	
+
 	String titulo;
 	String conteudo;
 
@@ -23,24 +23,24 @@ public class ver_notif extends Activity {
 
 	}
 
-	
-		public void getInfo() {
-			try {
-				
-				TextView tv_titulo =(TextView)findViewById(R.id.tv_titulo);
-	        	TextView tv_conteudo =(TextView)findViewById(R.id.tv_conteudo);
 
-	       		tv_titulo.setText(titulo);
-	    		tv_conteudo.setText(conteudo);
+	public void getInfo() {
+		try {
 
-	        	
-				
-				} catch (Exception e){
-					Toast t = Toast.makeText(getApplicationContext(),
-							"Erro inesperado!",
-							Toast.LENGTH_SHORT);
-					t.show();
-					Log.e("erro2", getIntent().getExtras().getString("titulo"));
-			}
+			TextView tv_titulo =(TextView)findViewById(R.id.tv_titulo);
+			TextView tv_conteudo =(TextView)findViewById(R.id.tv_conteudo);
+
+			tv_titulo.setText(titulo);
+			tv_conteudo.setText(conteudo);
+
+
+
+		} catch (Exception e){
+			Toast t = Toast.makeText(getApplicationContext(),
+					"Erro inesperado!",
+					Toast.LENGTH_SHORT);
+			t.show();
+			Log.e("erro2", getIntent().getExtras().getString("titulo"));
 		}
+	}
 }

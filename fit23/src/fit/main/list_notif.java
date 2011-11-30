@@ -11,7 +11,10 @@ import org.xml.sax.SAXException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -26,54 +29,90 @@ public class list_notif extends Activity {
 
 	String userID;
 	ArrayList<String> res = null;
+	ProgressDialog d;
 
 	@Override
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
 
 		Bundle bu = getIntent().getExtras();
+		userID = bu.getString("user-id");
 
-		String respFields[] = {"id", "data", "titulo", "texto"};
-		String fields[] = {"token"};
-		String values[] = {""+userID}; //token
+		d = ProgressDialog.show(this, Utils.header, Utils.text);
+		new getNotif().execute();
 
-		try {
-			res = Utils.GET("notificacaos.xml" , "notificacao", respFields, fields, values);
+		setContentView(R.layout.listar_notif);
+	}
 
-			if(res.size() == 0){
-				Bundle b1 = new Bundle();
+	private class getNotif extends AsyncTask<String, Integer, Intent> {
 
-				b1.putString("message", "Não existem notificações disponiveis!");
+		Intent i = null;
 
-				Intent i = new Intent(list_notif.this, menu.class);
+		protected Intent doInBackground(String... urls) {
+			String respFields[] = {"id", "data", "titulo", "texto"};
+			String fields[] = {"token"};
+			String values[] = {""+userID}; //token
 
-				i.putExtras(b1);
+			try {
 
-				this.finish();
+				res = Utils.GET("notificacaos.xml" , "notificacao", respFields, fields, values);
+
+				if(res.size() == 0){
+
+					Bundle bu = new Bundle();
+					bu.putString("user-id", userID);
+
+					i = new Intent(list_notif.this, menu.class);
+					i.putExtras(bu);
+
+					return i;
+				}
+
+			} catch (ParserConfigurationException e1) {
+				e1.printStackTrace();
+			} catch (SAXException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+			return null;
+		}
+
+		private DialogInterface.OnClickListener empty_listener = new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				list_notif.this.finish();
 
 				startActivity(i);
 			}
+		};
 
-		} catch (ParserConfigurationException e1) {
-			e1.printStackTrace();
-		} catch (SAXException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		protected void onPostExecute(Intent result) {
+			if(result != null){
+				d.dismiss();
 
-		userID = bu.getString("user-id");
+				AlertDialog.Builder infoResultado = new AlertDialog.Builder(list_notif.this);
+				infoResultado.setTitle("Aviso");
+				infoResultado.setMessage("Não existem noticias disponiveis!");
+				infoResultado.setNegativeButton("OK", empty_listener);
+				infoResultado.show();
 
-		setContentView(R.layout.listar_notif);
+			}
+			else{
+				try {
+					getInfo();
+				} catch (ParserConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 
-		try {
-			getInfo();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			d.dismiss();
 		}
 	}
 
@@ -81,11 +120,12 @@ public class list_notif extends Activity {
 	public void getInfo() throws ParserConfigurationException, SAXException{
 		try {
 
+			Log.e("getInfo", ""+res.size());
+
 			final ListView lv_notifs=(ListView)findViewById(R.id.lv_notifs);
 
 			//o array passado contem em cada posicao os dois conteudos: item e subitem
 			//String data;
-			Log.e("RES SIZE", ""+res.size());
 			ArrayList<ListMenuItem> lmi = new ArrayList<ListMenuItem>();
 			for(int i = 1; i < res.size(); i+=4){
 				ListMenuItem temp = new ListMenuItem(res.get(i+1), res.get(i), "");
@@ -111,7 +151,7 @@ public class list_notif extends Activity {
 
 				}
 			}
-			);
+					);
 
 		} catch (Exception ex) {
 			Logger.getLogger(listar_planos.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,7 +167,6 @@ public class list_notif extends Activity {
 
 				b.putString("titulo", res.get(i+2));
 				b.putString("texto", res.get(i+3));
-
 				b.putString("user-id", userID);
 
 			}	

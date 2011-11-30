@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,22 +26,22 @@ public class editarPerfil extends Activity {
 	@Override
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
-		
+
 		userID = getIntent().getExtras().getString("user-id");
 		res = getIntent().getExtras().getStringArrayList("perfil");		
-		
+
 		setContentView(R.layout.editar_perfil);
-		
+
 		getInfo();
-		
+
 		Button save = (Button) findViewById(R.id.btn_save_changes);
 		save.setOnClickListener(btn_save_listener);
 
 	}
-	
+
 	private OnClickListener btn_save_listener = new OnClickListener() {
 		public void onClick(View v) {
-			
+
 			String extension = "users/edit.xml";
 			String rNode = "edit";
 			String[] fields = {"token", "datanascimento", "email", "morada", "nome", "telefone"};
@@ -51,17 +50,17 @@ public class editarPerfil extends Activity {
 			ArrayList<String> response = null;
 			try {
 				response = Utils.POST(extension, rNode, responseFields, fields, values);
-				
+
 				if(response.get(0).equals("success")){
-					
+
 					Intent i = new Intent(editarPerfil.this, perfil.class);
-					
+
 					if(response != null){
 						Bundle b = new Bundle();
 						b.putString("user-id", userID);
 						i.putExtras(b);
 					}
-					
+
 					startActivity(i);					
 				}
 				else{
@@ -83,7 +82,7 @@ public class editarPerfil extends Activity {
 			}
 		}
 	};	
-	
+
 	public void getInfo() {
 		try {
 
@@ -92,13 +91,13 @@ public class editarPerfil extends Activity {
 			et_morada =(TextView)findViewById(R.id.et_morada);
 			et_nome =(TextView)findViewById(R.id.et_nome);
 			et_telefone =(TextView)findViewById(R.id.et_telefone);	
-			
+
 			et_datanasc.setText(res.get(0));
 			et_email.setText(res.get(1));
 			et_morada.setText(res.get(2));
 			et_nome.setText(res.get(3));
 			et_telefone.setText(res.get(4));
-			
+
 		} catch (Exception e){
 			Toast t = Toast.makeText(getApplicationContext(),
 					"Erro inesperado!",
