@@ -24,6 +24,9 @@ public class menu extends Activity {
 
 		LinearLayout notificacoes = (LinearLayout) findViewById(R.id.layout_notificacoes);
 		notificacoes.setOnClickListener(lstn_notific);
+		
+		LinearLayout gin_prox = (LinearLayout) findViewById(R.id.layout_ginasio_mais_proximo);
+		gin_prox.setOnClickListener(lstn_ginprox);
 
 		//falta adicionar listeners aos outros layouts/botoes
 	}
@@ -65,6 +68,18 @@ public class menu extends Activity {
 			i.putExtras(b);
 
 			startActivity(i);   		
+		}
+	};
+	
+	private OnClickListener lstn_ginprox = new OnClickListener() {
+		public void onClick(View v) {
+			Intent i = new Intent(menu.this, map.class);
+
+			//Bundle b = new Bundle();
+			//b.putString("user-id", (getIntent().getExtras()).getString("user-id"));
+			//i.putExtras(b);
+
+			startActivity(i);
 		}
 	};
 
