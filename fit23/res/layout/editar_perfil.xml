@@ -48,15 +48,18 @@
             <TextView
                 android:id="@+id/tv_nome"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dip"
+                android:layout_height="wrap_content"                
+                android:paddingBottom="15dip"
+                android:paddingTop="30dip"
                 android:text="Nome: " >
             </TextView>
 
             <EditText
                 android:id="@+id/et_nome"
-                android:layout_width="wrap_content"
+                android:ems="11"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 android:singleLine="true" >
 
                 <requestFocus />
@@ -71,7 +74,7 @@
             <TextView
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content"                
                 android:paddingBottom="10dip"
                 android:paddingTop="10dip"
                 android:text="E-mail: " >
@@ -79,8 +82,10 @@
 
             <EditText
                 android:id="@+id/et_email"
-                android:layout_width="wrap_content"
+                android:ems="11"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:singleLine="true" />
         </TableRow>
 
@@ -99,8 +104,10 @@
 
             <EditText
                 android:id="@+id/et_data_nasc"
-                android:layout_width="wrap_content"
+                android:ems="11"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:inputType="date"
                 android:singleLine="true" />
         </TableRow>
 
@@ -119,8 +126,11 @@
 
             <EditText
                 android:id="@+id/et_telefone"
-                android:layout_width="wrap_content"
+                android:ems="11"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:maxLength="9"
                 android:singleLine="true" />
         </TableRow>
 
@@ -138,7 +148,8 @@
 
             <EditText
                 android:id="@+id/et_morada"
-                android:layout_width="wrap_content"
+                android:ems="11"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true" />
         </TableRow>
