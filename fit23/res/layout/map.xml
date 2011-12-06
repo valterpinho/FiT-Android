@@ -10,6 +10,10 @@
 		android:id="@+id/map_view"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:clickable="true" android:enabled="true"
-		android:apiKey="0agvr1WwGiZkDKNDbkpdtqv3P2QgdsC-rADmU3Q" />
+		android:apiKey="09FC5KG2TiUM3Q-Ht8iLzGFJnPfj2W_mdZkpAbw" />
+		
+		<!--  Google Maps API Keys for Developers -->
+		<!-- ANDRE: 09FC5KG2TiUM3Q-Ht8iLzGFJnPfj2W_mdZkpAbw -->
+		<!-- VALTER: 0agvr1WwGiZkDKNDbkpdtqv3P2QgdsC-rADmU3Q -->
 		
 </LinearLayout>

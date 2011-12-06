@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dip"
-                android:src="@drawable/notificacoes" >
+                android:src="@drawable/contactos" >
             </ImageView>
 
             <TextView
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dip"
-                android:text="Notificações"
+                android:text="Contactos"
                 android:textAppearance="?android:attr/textAppearanceLarge" >
             </TextView>
         </TableRow>
@@ -42,7 +42,7 @@
         android:layout_height="fill_parent" >
 
         <ListView
-            android:id="@+id/lv_notifs"
+            android:id="@+id/lv_gyms"
             android:layout_width="fill_parent"
             android:layout_height="370dp" android:paddingTop="20dip">
         </ListView>

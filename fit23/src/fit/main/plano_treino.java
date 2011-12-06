@@ -54,12 +54,23 @@ public class plano_treino extends Activity{
 			String s[] = {"id", "data", "altura", "peso"};
 
 			try {
-				String fields[] = {"token"};
-				String values[] = {""+userID};
-				res = Utils.GET("planos.xml", "plano", s, fields, values);				
-
+				
+				//bundle que vem de outra atividade
 				Bundle bu = bundles[0];
+				
+				res = bu.getStringArrayList("planos");
+				
+				//caso em que não vem do listar planos
+				//tem de obter o array de exercicios por pedido ao site
+				if(res == null){
+				
+					String fields[] = {"token"};
+					String values[] = {""+userID};
+					res = Utils.GET("planos.xml", "plano", s, fields, values);	
+				}
 
+				
+				//se não tiver exercicios envia um bundle só com o user-id
 				if(res.size() == 0){
 					bu.putString("user-id", userID);
 
@@ -68,6 +79,7 @@ public class plano_treino extends Activity{
 
 					return i;
 				}
+				//caso existem exercicios guarda no bundle o array e "encapsula-o" num intent
 				else{
 					bu.putStringArrayList("planos", res);
 					i = new Intent();
@@ -98,6 +110,7 @@ public class plano_treino extends Activity{
 		protected void onPostExecute(Intent result) {
 			Bundle b = result.getExtras();
 			res = b.getStringArrayList("planos");
+			//não existem planos de treino
 			if(res == null){
 				d.dismiss();
 
@@ -107,7 +120,7 @@ public class plano_treino extends Activity{
 				infoResultado.setNegativeButton("OK", empty_listener);
 				infoResultado.show();
 
-			} else
+			} else //se existirem planos de treino vai obter 
 				try {
 					getInfo(b);
 				} catch (ParserConfigurationException e) {
@@ -159,7 +172,32 @@ public class plano_treino extends Activity{
 			}
 			return true;
 		case R.id.novo_plano:
-			//TO-DO
+			String nome = null;
+			try{
+				//obter o nome do utilizador
+				String s[] = {"nome"};
+				String fields[] = {"token"};
+				String values[] = {""+userID};
+				nome = Utils.GET("users.xml", "user", s, fields, values).get(0);	
+			} catch (Exception e) {
+				Toast t = Toast.makeText(getApplicationContext(),
+						"Erro inesperado! :)",
+						Toast.LENGTH_SHORT);
+				t.show();
+			}
+
+			if(nome != null){
+				Intent i2 = new Intent(Intent.ACTION_SEND);
+				i2.setType("text/plain");
+				i2.putExtra(Intent.EXTRA_EMAIL  , new String[]{"geral.fit@gmail.com"}); //email para onde vai ser enviada a mensagem
+				i2.putExtra(Intent.EXTRA_SUBJECT, "Pedido de novo plano de treino"); //Assunto da mensagem
+				i2.putExtra(Intent.EXTRA_TEXT   , nome+ " requisitou um novo plano de treino."); //Conteúdo da mensagem
+				try {
+					startActivity(Intent.createChooser(i2, "Send mail..."));
+				} catch (android.content.ActivityNotFoundException ex) {
+					Toast.makeText(plano_treino.this, "Serviço de email indisponível!", Toast.LENGTH_SHORT).show();
+				}
+			}
 			return true;
 		}
 		return false;
@@ -170,12 +208,14 @@ public class plano_treino extends Activity{
 			TextView tv_data=(TextView)findViewById(R.id.tv_dataplano);
 			TextView tv_altura=(TextView)findViewById(R.id.tv_alturaplano);
 			TextView tv_peso=(TextView)findViewById(R.id.tv_pesoplano);
+			TextView ex = (TextView)findViewById(R.id.exercicios);
 			ListView lv_exerc=(ListView)findViewById(R.id.lv_exercicios);
 
 			int id_plano=0;
-
+			ex.setText("Exercícios");
 			if(b.get("planoID") != null){//mostrar o plano cujo id é planoID passado no bundle
 
+				
 				id_plano = Integer.parseInt(b.getString("planoID"));
 
 				tv_data.setText("Data: " + b.getString("data"));

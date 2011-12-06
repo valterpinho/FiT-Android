@@ -17,14 +17,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-//TODO Quando o titulo ocupa + do k 1 linha dá porcaria na formatacao
 
-public class list_notif extends Activity {
+public class list_ginasios extends Activity {
 	/** Called when the activity is first created. */
 
 	String userID;
@@ -37,32 +33,32 @@ public class list_notif extends Activity {
 
 		Bundle bu = getIntent().getExtras();
 		userID = bu.getString("user-id");
-
+		
 		d = ProgressDialog.show(this, Utils.header, Utils.text);
-		new getNotif().execute();
+		new getGinasios().execute();
 
-		setContentView(R.layout.listar_notif);
+		setContentView(R.layout.listar_ginasios);
 	}
 
-	private class getNotif extends AsyncTask<String, Integer, Intent> {
+	private class getGinasios extends AsyncTask<String, Integer, Intent> {
 
 		Intent i = null;
 
 		protected Intent doInBackground(String... urls) {
-			String respFields[] = {"id", "data", "titulo", "texto"};
+			String respFields[] = {"nome", "morada", "telefone"};
 			String fields[] = {"token"};
 			String values[] = {""+userID}; //token
 
 			try {
-
-				res = Utils.GET("notificacaos.xml" , "notificacao", respFields, fields, values);
+				
+				res = Utils.GET("ginasios.xml" , "ginasio", respFields, fields, values);
 
 				if(res.size() == 0){
 
 					Bundle bu = new Bundle();
 					bu.putString("user-id", userID);
 
-					i = new Intent(list_notif.this, menu.class);
+					i = new Intent(list_ginasios.this, menu.class);
 					i.putExtras(bu);
 
 					return i;
@@ -83,7 +79,7 @@ public class list_notif extends Activity {
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
 				
-				list_notif.this.finish();
+				list_ginasios.this.finish();
 
 				startActivity(i);
 			}
@@ -93,9 +89,9 @@ public class list_notif extends Activity {
 			if(result != null){
 				d.dismiss();
 
-				AlertDialog.Builder infoResultado = new AlertDialog.Builder(list_notif.this);
+				AlertDialog.Builder infoResultado = new AlertDialog.Builder(list_ginasios.this);
 				infoResultado.setTitle("Aviso");
-				infoResultado.setMessage("Não existem noticias disponiveis!");
+				infoResultado.setMessage("Não existem contactos disponiveis!");
 				infoResultado.setNegativeButton("OK", empty_listener);
 				infoResultado.show();
 
@@ -116,56 +112,20 @@ public class list_notif extends Activity {
 	public void getInfo() throws ParserConfigurationException, SAXException{
 		try {
 
-			final ListView lv_notifs=(ListView)findViewById(R.id.lv_notifs);
+			final ListView lv_gyms=(ListView)findViewById(R.id.lv_gyms);
 
 			//o array passado contem em cada posicao os dois conteudos: item e subitem
-			//String data;
 			ArrayList<ListMenuItem> lmi = new ArrayList<ListMenuItem>();
-			for(int i = 1; i < res.size(); i+=4){
-				ListMenuItem temp = new ListMenuItem(res.get(i+1), res.get(i), "");
+			for(int i = 0; i < res.size(); i+=3){
+				ListMenuItem temp = new ListMenuItem(res.get(i), "Telefone: " + res.get(i+1), "Morada: " + res.get(i+2));
 				lmi.add(temp);
 			}
 
-			// By using setAdpater method in listview we an add string array in list.
-			//lv_notifs.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lmi));
-			lv_notifs.setAdapter(new list_exercs(this, android.R.layout.simple_list_item_1 , lmi));
-
-			lv_notifs.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-
-					Bundle b = findById(res.get(pos*4));
-
-					Intent i = new Intent(list_notif.this, ver_notif.class);
-
-					i.putExtras(b);
-
-					startActivity(i);
-
-				}
-			}
-					);
+			// By using setAdpater method in listview we an add string array in list.			
+			lv_gyms.setAdapter(new list_exercs(this, android.R.layout.simple_list_item_1 , lmi));
 
 		} catch (Exception ex) {
 			Logger.getLogger(listar_planos.class.getName()).log(Level.SEVERE, null, ex);
 		}
-	}
-
-	public Bundle findById(String id){
-
-		Bundle b = new Bundle();
-
-		for(int i=0; i < res.size(); i+=4){
-			if(res.get(i).equals(id)){
-
-				b.putString("titulo", res.get(i+2));
-				b.putString("texto", res.get(i+3));
-				b.putString("user-id", userID);
-
-			}	
-		}
-
-		return b;
 	}
 }

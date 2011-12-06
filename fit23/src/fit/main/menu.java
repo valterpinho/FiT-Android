@@ -27,6 +27,9 @@ public class menu extends Activity {
 		
 		LinearLayout gin_prox = (LinearLayout) findViewById(R.id.layout_ginasio_mais_proximo);
 		gin_prox.setOnClickListener(lstn_ginprox);
+		
+		LinearLayout contactos = (LinearLayout) findViewById(R.id.layout_contactos);
+		contactos.setOnClickListener(lstn_contactos);
 
 		//falta adicionar listeners aos outros layouts/botoes
 	}
@@ -74,13 +77,33 @@ public class menu extends Activity {
 	private OnClickListener lstn_ginprox = new OnClickListener() {
 		public void onClick(View v) {
 			Intent i = new Intent(menu.this, map.class);
+			
+			Bundle b = new Bundle();
 
-			//Bundle b = new Bundle();
-			//b.putString("user-id", (getIntent().getExtras()).getString("user-id"));
-			//i.putExtras(b);
+			String userID = (getIntent().getExtras()).getString("user-id");
 
+			b.putString("user-id", userID);
+
+			i.putExtras(b);
+			
 			startActivity(i);
 		}
 	};
+	
+	private OnClickListener lstn_contactos = new OnClickListener() {
+		public void onClick(View v) {
+			Bundle b = new Bundle();
+			
+			Intent i = new Intent(menu.this, list_ginasios.class);
+			
+			String userID = (getIntent().getExtras()).getString("user-id");
+
+			b.putString("user-id", userID);
+
+			i.putExtras(b);
+			
+			startActivity(i);
+		}
+	};	
 
 }

@@ -1,16 +1,27 @@
 package fit.main;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
-
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -23,7 +34,11 @@ public class map extends MapActivity {
 
 	private MapView mapView;
 	private GeoPoint myLocation = null;
+	private GeoPoint destiny = null;
 	Location current = null;
+	String userID = null;	
+	private ArrayList<String> near_gym = new ArrayList<String>();
+	//HashMap<String, ArrayList<String>> ginasios;
 
 	//private static final int gym_lat_dragao = 41161427;
 	//private static final int gym_long_dragao = -8582106;
@@ -34,14 +49,111 @@ public class map extends MapActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map);
 
+		Bundle bu = getIntent().getExtras();
+		userID = bu.getString("user-id");
+
 		verificaLigacoes();
 
+	}
+	
+	//menu para ver percurso
+	@Override
+	//inflating our own menu
+	public boolean onCreateOptionsMenu(Menu menu) {
+		//super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_map, menu);
+		return true;
+	}
+
+	@Override
+	//implement a reaction of our menu
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() == R.id.ver_percurso) {
+
+			//abrir google maps com o percurso
+			double lat_or = myLocation.getLatitudeE6()/1E6;
+			double lon_or = myLocation.getLongitudeE6()/1E6;
+			String origem = lat_or + "," + lon_or;
+			double lat_ds = destiny.getLatitudeE6()/1E6;
+			double lon_ds = destiny.getLongitudeE6()/1E6;
+			String destino = lat_ds + "," + lon_ds;
+			Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + origem + "&daddr=" + destino));
+			startActivity(intent);
+
+			startActivity(intent);
+
+			return true;
+		}
+		return false;
+	}
+	//fim menu ver percurso
+
+	void getAllGyms() throws ParserConfigurationException, SAXException, IOException{
+		String respFields[] = {"nome", "morada", "telefone", "latitude", "longitude"};
+		String fields[] = {"token"};
+		String values[] = {""+userID}; //token
+
+		ArrayList<String> res = Utils.GET("ginasios.xml" , "ginasio", respFields, fields, values);
+		
+		getNearestGym(res);
+		//Log.e("Distancia: ", "Entrou");
+	}
+
+	ArrayList<String> getNearestGym(ArrayList<String> gyms){
+		ArrayList<String> nearest = new ArrayList<String>();
+		float[] results = new float[1];
+		float nearest_actual = 0;
+		int nearest_index = 0;
+		/*
+		AlertDialog.Builder infoResultado = new AlertDialog.Builder(map.this);
+		infoResultado.setTitle("Debug");
+		infoResultado.setMessage("latmy "+ myLocation.getLatitudeE6()/1E6 + "gymlat " + Double.parseDouble(gyms.get(3)));
+		infoResultado.setNeutralButton("Ok",null);
+		infoResultado.show();
+		*/
+		
+		for(int i = 0; i < gyms.size(); i+=5)
+			if (myLocation != null){				
+				Location.distanceBetween(myLocation.getLatitudeE6()/1E6, myLocation.getLongitudeE6()/1E6,
+						Double.parseDouble(gyms.get(i+3)), Double.parseDouble(gyms.get(i+4)), results);
+				if(i == 0){
+					nearest_actual = results[0];
+					nearest_index = i;
+				}
+				else
+					if(results[0] < nearest_actual){
+						nearest_actual = results[0];
+						nearest_index = i;
+					}
+						
+				//Log.e("Distancia: ", ""+ results[0]);
+			}
+		
+		//comparar distancias
+		/*int nearest_index = 0;
+		for(int i=0; i<5; i++){
+			if(results[i] < results[nearest_index])
+				nearest_index = i;
+		}*/
+		
+		for(int i=nearest_index; i < nearest_index+5; i++){
+			nearest.add(gyms.get(i));
+		}
+		
+		Toast t = Toast.makeText(getApplicationContext(),
+				"Ginásio mais próximo: " + nearest.get(0),
+				Toast.LENGTH_LONG);
+		t.show();
+		
+		near_gym = nearest;
+
+		return nearest;
 	}
 
 	void criaMapa(){
 		mapView = (MapView) findViewById(R.id.map_view);       
 		mapView.setBuiltInZoomControls(true);
-		mapView.setSatellite(true); //new
 
 		List<Overlay> mapOverlays = mapView.getOverlays();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.plano_treino);
@@ -50,15 +162,33 @@ public class map extends MapActivity {
 		getLocation();
 
 		if(myLocation != null){
-			OverlayItem overlayitem = new OverlayItem(myLocation, "Solinca Dragão", "Telef:  22 110 11 01");
 
+			try {
+				getAllGyms();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			//myPosition
+			OverlayItem overlayitem = new OverlayItem(myLocation, "Posição Atual", "Latitude: " + myLocation.getLatitudeE6() + "  " + "Longitude: " + myLocation.getLongitudeE6());
 			itemizedOverlay.addOverlay(overlayitem);
+			
+			//nearestGym
+			int lat = (int) (Double.parseDouble(near_gym.get(3)) * 1E6);
+			int lng = (int) (Double.parseDouble(near_gym.get(4)) * 1E6);
+			GeoPoint gp = new GeoPoint(lat, lng);
+			destiny = gp;
+			OverlayItem overlayitem2 = new OverlayItem(gp, "Ginásio Mais Próximo", near_gym.get(0) + " - " + near_gym.get(1) + " Tel: " + near_gym.get(2));
+			itemizedOverlay.addOverlay(overlayitem2);
+			
+			
 			mapOverlays.add(itemizedOverlay);
 
 			MapController mapController = mapView.getController();
 
-			mapController.animateTo(myLocation);
-			mapController.setZoom(16);
+			mapController.animateTo(myLocation); //calcular ponto medio?
+			mapController.setZoom(14);
 		}
 	}
 

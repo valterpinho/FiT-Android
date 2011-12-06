@@ -19,7 +19,7 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tv_pesoplano" android:text=""></TextView>
         </TableRow>
     </TableLayout>
-    <TextView android:id="@+id/textView5" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Exercícios:" android:paddingTop="10dip"></TextView>
+    <TextView android:id="@+id/exercicios" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:layout_width="wrap_content" android:paddingTop="10dip"></TextView>
   <LinearLayout android:id="@+id/linearLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent">
 
             <ListView
