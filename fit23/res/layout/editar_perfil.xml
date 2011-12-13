@@ -1,152 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="wrap_content"
-	android:layout_weight="1"> 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:weightSum="1" >
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 
-	
-		<!-- Barra Superior comum a toda a app -->
-		<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/tableLayout1">
-			<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
-				<ImageView android:src="@drawable/app_icon" android:layout_height="wrap_content" android:id="@+id/imageView2" android:layout_width="wrap_content"></ImageView>
-				<TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:text="Texto" android:layout_width="wrap_content" android:id="@+id/txt_top" android:paddingLeft="25dip" android:layout_gravity="center_vertical|center_horizontal"></TextView>
-			</TableRow>
-		</TableLayout>
+	<com.markupartist.android.widget.ActionBar
+		android:id="@+id/actionbar" style="@style/ActionBar" />
 
-    <TableLayout
-        android:id="@+id/tableLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="1">
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res/fit.main"
+			android:orientation="vertical" android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
 
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+			<TableLayout android:id="@+id/tableLayout1"
+				android:layout_width="fill_parent" android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_nome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"                
-                android:paddingBottom="15dip"
-                android:paddingTop="30dip"
-                android:text="Nome: " >
-            </TextView>
+				<TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/et_nome"
-                android:ems="10"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:singleLine="true" >
+					<TextView android:id="@+id/tv_nome" android:layout_width="wrap_content"
+						android:layout_height="wrap_content" android:paddingBottom="15dip"
+						android:paddingTop="30dip" android:text="Nome: ">
+					</TextView>
 
-                <requestFocus />
-            </EditText>
-        </TableRow>
+					<EditText android:id="@+id/et_nome" android:ems="10"
+						android:layout_width="fill_parent" android:layout_height="wrap_content"
+						android:inputType="textPersonName" android:singleLine="true">
 
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+						<requestFocus />
+					</EditText>
+				</TableRow>
 
-            <TextView
-                android:id="@+id/tv_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"                
-                android:paddingBottom="10dip"
-                android:paddingTop="10dip"
-                android:text="E-mail: " >
-            </TextView>
+				<TableRow android:id="@+id/tableRow3" android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/et_email"
-                android:ems="10"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:singleLine="true" />
-        </TableRow>
+					<TextView android:id="@+id/tv_email" android:layout_width="wrap_content"
+						android:layout_height="wrap_content" android:paddingBottom="10dip"
+						android:paddingTop="10dip" android:text="E-mail: ">
+					</TextView>
 
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+					<EditText android:id="@+id/et_email" android:ems="10"
+						android:layout_width="fill_parent" android:layout_height="wrap_content"
+						android:inputType="textEmailAddress" android:singleLine="true" />
+				</TableRow>
 
-            <TextView
-                android:id="@+id/tv_data_nasc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dip"
-                android:text="Nascimento: " >
-            </TextView>
+				<TableRow android:id="@+id/tableRow4" android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/et_data_nasc"
-                android:ems="10"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:singleLine="true" />
-        </TableRow>
+					<TextView android:id="@+id/tv_data_nasc"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:paddingBottom="10dip" android:text="Nascimento: ">
+					</TextView>
 
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+					<EditText android:id="@+id/et_data_nasc" android:ems="10"
+						android:layout_width="fill_parent" android:layout_height="wrap_content"
+						android:inputType="date" android:singleLine="true" />
+				</TableRow>
 
-            <TextView
-                android:id="@+id/tv_telefone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dip"
-                android:text="Telefone: " >
-            </TextView>
+				<TableRow android:id="@+id/tableRow4" android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/et_telefone"
-                android:ems="10"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLength="9"
-                android:singleLine="true" />
-        </TableRow>
+					<TextView android:id="@+id/tv_telefone"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:paddingBottom="10dip" android:text="Telefone: ">
+					</TextView>
 
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+					<EditText android:id="@+id/et_telefone" android:ems="10"
+						android:layout_width="fill_parent" android:layout_height="wrap_content"
+						android:inputType="phone" android:maxLength="9"
+						android:singleLine="true" />
+				</TableRow>
 
-            <TextView
-                android:id="@+id/tv_morada"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Morada: " >
-            </TextView>
+				<TableRow android:id="@+id/tableRow4" android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/et_morada"
-                android:ems="10"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true" />
-        </TableRow>
-    </TableLayout>
-
-    <Button
-        android:id="@+id/btn_save_changes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50px"
-        android:text="Guardar Alterações" />
+					<TextView android:id="@+id/tv_morada"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:text="Morada: ">
+					</TextView>
 
+					<EditText android:id="@+id/et_morada" android:ems="10"
+						android:layout_width="fill_parent" android:layout_height="wrap_content"
+						android:singleLine="true" />
+				</TableRow>
+			</TableLayout>
+			<Button android:id="@+id/btn_save_changes"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal" android:layout_marginTop="50px"
+				android:text="Guardar Alterações" />
+		</LinearLayout>
+	</ScrollView>
 
 </LinearLayout>
-</ScrollView>

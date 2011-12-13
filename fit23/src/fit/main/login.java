@@ -47,7 +47,7 @@ public class login extends Activity {
         actionBar.setTitle("FiT :: Welcome");
         actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
         //actionBar.setDisplayHomeAsUpEnabled(true);
-        //actionBar.addAction(new IntentAction(this, createShareIntent(), R.drawable.ic_title_share_default));
+        actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
 		
 		//adiciona listener ao botão login
 		Button login = (Button) findViewById(R.id.btn_login);
@@ -180,5 +180,12 @@ public class login extends Activity {
 			passw.setText("");
 		}
 	};
+	
+	//metodos actionBar
+    public Intent createLogoutIntent(Context context) {
+        Intent i = new Intent(context, login.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
+    }
 
 }

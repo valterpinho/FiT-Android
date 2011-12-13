@@ -1,5 +1,8 @@
 package fit.main;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,10 +11,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class menu extends Activity {
 
+	static String userID = null;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle b) {
@@ -19,9 +22,15 @@ public class menu extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.menu); 
 		
-		TextView txt_top = (TextView) findViewById(R.id.txt_top);
-		txt_top.setText(".:: Menu ::.");
-
+		userID = getIntent().getExtras().getString("user-id");
+		
+		//ActionBar
+        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setTitle("FiT :: Menu Principal");
+        actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
+		
 		LinearLayout plano_treino = (LinearLayout) findViewById(R.id.layout_plano_treino);
 		plano_treino.setOnClickListener(lstn_ptreino);
 
@@ -45,7 +54,7 @@ public class menu extends Activity {
 			Intent i = new Intent(menu.this, perfil.class);
 
 			Bundle b = new Bundle();
-			b.putString("user-id", (getIntent().getExtras()).getString("user-id"));
+			b.putString("user-id", userID);
 			i.putExtras(b);
 
 			startActivity(i);
@@ -57,7 +66,7 @@ public class menu extends Activity {
 			Intent i = new Intent(menu.this, list_notif.class);
 
 			Bundle b = new Bundle();
-			b.putString("user-id", (getIntent().getExtras()).getString("user-id"));
+			b.putString("user-id", userID);
 			i.putExtras(b);
 
 			startActivity(i);
@@ -69,8 +78,6 @@ public class menu extends Activity {
 			Intent i = new Intent(menu.this, plano_treino.class);
 
 			Bundle b = new Bundle();
-
-			String userID = (getIntent().getExtras()).getString("user-id");
 
 			b.putString("user-id", userID);
 
@@ -101,8 +108,6 @@ public class menu extends Activity {
 			Bundle b = new Bundle();
 			
 			Intent i = new Intent(menu.this, list_ginasios.class);
-			
-			String userID = (getIntent().getExtras()).getString("user-id");
 
 			b.putString("user-id", userID);
 
@@ -115,6 +120,15 @@ public class menu extends Activity {
 	//metodos utilizados pela ActionBar
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, menu.class);
+        Bundle b = new Bundle();
+        b.putString("user-id", userID);
+        i.putExtras(b);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
+    }
+    
+    public Intent createLogoutIntent(Context context) {
+        Intent i = new Intent(context, login.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return i;
     }

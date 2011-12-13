@@ -17,9 +17,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 
 public class list_ginasios extends Activity {
@@ -47,7 +50,7 @@ public class list_ginasios extends Activity {
 		Intent i = null;
 
 		protected Intent doInBackground(String... urls) {
-			String respFields[] = {"nome", "morada", "telefone"};
+			String respFields[] = {"nome", "morada", "telefone", "latitude", "longitude"};
 			String fields[] = {"token"};
 			String values[] = {""+userID}; //token
 
@@ -121,13 +124,36 @@ public class list_ginasios extends Activity {
 
 			//o array passado contem em cada posicao os dois conteudos: item e subitem
 			ArrayList<ListMenuItem> lmi = new ArrayList<ListMenuItem>();
-			for(int i = 0; i < res.size(); i+=3){
+			for(int i = 0; i < res.size(); i+=5){
 				ListMenuItem temp = new ListMenuItem(res.get(i), "Telefone: " + res.get(i+1), "Morada: " + res.get(i+2));
 				lmi.add(temp);
 			}
 
 			// By using setAdpater method in listview we an add string array in list.			
 			lv_gyms.setAdapter(new list_exercs(this, android.R.layout.simple_list_item_1 , lmi));
+			
+			lv_gyms.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+					ArrayList<String> temp = new ArrayList<String>();
+					
+					for(int i = pos*5; i < pos*5+5; i++){
+						temp.add(res.get(i));
+					}
+					
+					Bundle b = new Bundle();
+					b.putStringArrayList("fromContacts", temp);
+					b.putString("user-id", userID);
+					
+					Intent i = new Intent(list_ginasios.this, map.class);
+
+					i.putExtras(b);
+
+					startActivity(i);
+
+				}
+			});
 
 		} catch (Exception ex) {
 			Logger.getLogger(listar_planos.class.getName()).log(Level.SEVERE, null, ex);

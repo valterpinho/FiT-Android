@@ -24,8 +24,7 @@
 		<activity android:name=".menu" android:label="@string/app_name"></activity>
 		<activity android:name=".plano_treino" android:label="@string/app_name"></activity>
 		<activity android:name=".listar_planos" android:label="@string/app_name"></activity>
-		<activity android:name=".perfil" android:label="@string/app_name"
-			android:noHistory="true"></activity>
+		<activity android:name=".perfil" android:label="@string/app_name"></activity>
 		<activity android:name=".editarPerfil" android:label="@string/app_name"
 			android:noHistory="true"></activity>
 		<activity android:name=".list_notif" android:label="@string/app_name"></activity>

@@ -6,9 +6,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -37,11 +41,26 @@ public class perfil extends Activity {
 
 		userID = getIntent().getExtras().getString("user-id");		
 
-		d = ProgressDialog.show(this, Utils.header, Utils.text);
-		new getPerfil().execute();
+		//d = ProgressDialog.show(this, Utils.header, Utils.text);
+		//new getPerfil().execute();
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.perfil);
+		
+		//ActionBar
+        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setTitle("FiT :: Perfil");
+        actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
+		
 
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		d = ProgressDialog.show(this, Utils.header, Utils.text);
+		new getPerfil().execute();
 	}
 
 	private class getPerfil extends AsyncTask<Bundle, Integer, Intent> {
@@ -138,9 +157,6 @@ public class perfil extends Activity {
 
 	public void setText(){
 		
-		TextView txt_top = (TextView) findViewById(R.id.txt_top);
-		txt_top.setText(".:: Pefil ::.");
-		
 		TextView tv_datanasc =(TextView)findViewById(R.id.tv_data_nasc);
 		TextView tv_email =(TextView)findViewById(R.id.tv_email);
 		TextView tv_morada =(TextView)findViewById(R.id.tv_morada);
@@ -180,4 +196,11 @@ public class perfil extends Activity {
 			t.show();
 		}
 	}
+	
+	//metodos actionBar
+    public Intent createLogoutIntent(Context context) {
+        Intent i = new Intent(context, login.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
+    }
 }

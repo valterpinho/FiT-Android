@@ -40,10 +40,6 @@ public class map extends MapActivity {
 	Location current = null;
 	String userID = null;	
 	private ArrayList<String> near_gym = new ArrayList<String>();
-	//HashMap<String, ArrayList<String>> ginasios;
-
-	//private static final int gym_lat_dragao = 41161427;
-	//private static final int gym_long_dragao = -8582106;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +53,8 @@ public class map extends MapActivity {
 
 		Bundle bu = getIntent().getExtras();
 		userID = bu.getString("user-id");
-
+		near_gym = bu.getStringArrayList("fromContacts");
+		
 		verificaLigacoes();
 
 	}
@@ -103,22 +100,14 @@ public class map extends MapActivity {
 		ArrayList<String> res = Utils.GET("ginasios.xml" , "ginasio", respFields, fields, values);
 		
 		getNearestGym(res);
-		//Log.e("Distancia: ", "Entrou");
 	}
 
-	ArrayList<String> getNearestGym(ArrayList<String> gyms){
+	void getNearestGym(ArrayList<String> gyms){
 		ArrayList<String> nearest = new ArrayList<String>();
 		float[] results = new float[1];
 		float nearest_actual = 0;
 		int nearest_index = 0;
-		/*
-		AlertDialog.Builder infoResultado = new AlertDialog.Builder(map.this);
-		infoResultado.setTitle("Debug");
-		infoResultado.setMessage("latmy "+ myLocation.getLatitudeE6()/1E6 + "gymlat " + Double.parseDouble(gyms.get(3)));
-		infoResultado.setNeutralButton("Ok",null);
-		infoResultado.show();
-		*/
-		
+
 		for(int i = 0; i < gyms.size(); i+=5)
 			if (myLocation != null){				
 				Location.distanceBetween(myLocation.getLatitudeE6()/1E6, myLocation.getLongitudeE6()/1E6,
@@ -136,13 +125,6 @@ public class map extends MapActivity {
 				//Log.e("Distancia: ", ""+ results[0]);
 			}
 		
-		//comparar distancias
-		/*int nearest_index = 0;
-		for(int i=0; i<5; i++){
-			if(results[i] < results[nearest_index])
-				nearest_index = i;
-		}*/
-		
 		for(int i=nearest_index; i < nearest_index+5; i++){
 			nearest.add(gyms.get(i));
 		}
@@ -153,13 +135,12 @@ public class map extends MapActivity {
 		t.show();
 		
 		near_gym = nearest;
-
-		return nearest;
 	}
 
 	void criaMapa(){
 		mapView = (MapView) findViewById(R.id.map_view);       
 		mapView.setBuiltInZoomControls(true);
+		mapView.setSatellite(true);
 
 		List<Overlay> mapOverlays = mapView.getOverlays();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.plano_treino);
@@ -170,7 +151,10 @@ public class map extends MapActivity {
 		if(myLocation != null){
 
 			try {
-				getAllGyms();
+				if(near_gym == null){
+					getAllGyms();
+				}
+					
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -185,16 +169,17 @@ public class map extends MapActivity {
 			int lng = (int) (Double.parseDouble(near_gym.get(4)) * 1E6);
 			GeoPoint gp = new GeoPoint(lat, lng);
 			destiny = gp;
-			OverlayItem overlayitem2 = new OverlayItem(gp, "Ginásio Mais Próximo", near_gym.get(0) + " - " + near_gym.get(1) + " Tel: " + near_gym.get(2));
+			OverlayItem overlayitem2 = new OverlayItem(gp, "Ginásio " + near_gym.get(0), near_gym.get(1) + " Tel: " + near_gym.get(2));
 			itemizedOverlay.addOverlay(overlayitem2);
 			
 			
 			mapOverlays.add(itemizedOverlay);
 
 			MapController mapController = mapView.getController();
-
-			mapController.animateTo(myLocation); //calcular ponto medio?
-			mapController.setZoom(14);
+			
+			GeoPoint gp_center = new GeoPoint((lat+myLocation.getLatitudeE6())/2, (lng+myLocation.getLongitudeE6())/2);
+			mapController.animateTo(gp_center); //calcular ponto medio?
+			mapController.zoomToSpan(Math.abs(lat+myLocation.getLatitudeE6()), Math.abs(lng+myLocation.getLongitudeE6()));
 		}
 	}
 
