@@ -5,6 +5,14 @@
     android:layout_height="fill_parent"
 	>
 	
+	<!-- Barra Superior comum a toda a app -->
+		<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/tableLayout1">
+			<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+				<ImageView android:src="@drawable/app_icon" android:layout_height="wrap_content" android:id="@+id/imageView2" android:layout_width="wrap_content"></ImageView>
+				<TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:text="" android:layout_width="wrap_content" android:id="@+id/txt_top" android:layout_gravity="center_vertical" android:paddingLeft="25dip"></TextView>
+			</TableRow>
+		</TableLayout>
+	
 	<ScrollView 
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 

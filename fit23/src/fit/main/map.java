@@ -21,6 +21,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -47,7 +49,11 @@ public class map extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.map);
+		
+		TextView txt_top = (TextView) findViewById(R.id.txt_top);
+		txt_top.setText(".:: Ginásio Mais Próximo ::.");
 
 		Bundle bu = getIntent().getExtras();
 		userID = bu.getString("user-id");

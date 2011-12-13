@@ -1,11 +1,14 @@
 package fit.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class menu extends Activity {
 
@@ -13,8 +16,11 @@ public class menu extends Activity {
 	@Override
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
-
-		setContentView(R.layout.menu);    
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.menu); 
+		
+		TextView txt_top = (TextView) findViewById(R.id.txt_top);
+		txt_top.setText(".:: Menu ::.");
 
 		LinearLayout plano_treino = (LinearLayout) findViewById(R.id.layout_plano_treino);
 		plano_treino.setOnClickListener(lstn_ptreino);
@@ -104,6 +110,13 @@ public class menu extends Activity {
 			
 			startActivity(i);
 		}
-	};	
+	};
+	
+	//metodos utilizados pela ActionBar
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, menu.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
+    }
 
 }

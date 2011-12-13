@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="wrap_content" android:gravity="left|center"
-	android:layout_width="wrap_content" android:paddingBottom="5px"
-	android:paddingTop="5px" android:paddingLeft="5px">
+	android:layout_width="wrap_content" android:paddingBottom="5dip"
+	android:paddingTop="5dip" android:paddingLeft="5dip">
 	<LinearLayout android:orientation="vertical"
 		android:layout_width="0dip" android:layout_weight="1"
 		android:layout_height="fill_parent">
@@ -11,9 +11,9 @@
 			android:layout_height="wrap_content" android:gravity="center" />
 		<TextView android:id="@+id/maquina_tipo"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_marginLeft="10px" android:textColor="#0099CC" />
+			android:layout_marginLeft="10dip" android:textColor="#0099CC" />
 		<TextView android:id="@+id/subitem2"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_marginLeft="10px" android:textColor="#0099CC" />
+			android:layout_marginLeft="10dip" android:textColor="#0099CC" />
 	</LinearLayout>
 </LinearLayout>

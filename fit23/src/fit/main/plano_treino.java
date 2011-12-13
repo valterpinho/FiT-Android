@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ public class plano_treino extends Activity{
 	@Override
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		Bundle bu = getIntent().getExtras();
 
 		userID = bu.getString("user-id");
@@ -122,6 +123,9 @@ public class plano_treino extends Activity{
 
 			} else //se existirem planos de treino vai obter 
 				try {
+					TextView txt_top = (TextView) findViewById(R.id.txt_top);
+					txt_top.setText(".:: Plano de Treino ::.");
+					
 					getInfo(b);
 				} catch (ParserConfigurationException e) {
 					// TODO Auto-generated catch block

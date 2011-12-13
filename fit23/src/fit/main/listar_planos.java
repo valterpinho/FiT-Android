@@ -15,10 +15,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -38,8 +40,11 @@ public class listar_planos extends Activity {
 		res = bu.getStringArrayList("planos");
 
 		userID = bu.getInt("user-id");
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.listar_planos);
+		
+		TextView txt_top = (TextView) findViewById(R.id.txt_top);
+		txt_top.setText(".:: Planos de Treino ::.");
 
 		try {
 			getInfo(res);

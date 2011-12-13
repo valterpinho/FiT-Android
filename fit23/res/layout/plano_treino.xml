@@ -4,11 +4,20 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:weightSum="1">
+    
+    <!-- Barra Superior comum a toda a app -->
+		<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/tableLayout1">
+			<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+				<ImageView android:src="@drawable/app_icon" android:layout_height="wrap_content" android:id="@+id/imageView2" android:layout_width="wrap_content"></ImageView>
+				<TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:text="" android:layout_width="wrap_content" android:id="@+id/txt_top" android:layout_gravity="center_vertical" android:paddingLeft="25dip"></TextView>
+			</TableRow>
+		</TableLayout>
+		
     <TableLayout android:id="@+id/tableLayout1" android:layout_width="fill_parent" android:layout_height="wrap_content">
-        <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <!--  <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
             <ImageView android:layout_width="wrap_content" android:id="@+id/imageView1" android:layout_height="wrap_content" android:src="@drawable/plano_treino" android:paddingLeft="10dip"></ImageView>
             <TextView android:layout_width="wrap_content" android:id="@+id/textView1" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:text="Plano de Treino" android:layout_gravity="center_vertical" android:paddingLeft="20dip"></TextView>
-        </TableRow>
+        </TableRow> -->
         <TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content" android:layout_height="wrap_content">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:id="@+id/tv_dataplano"></TextView>
         </TableRow>

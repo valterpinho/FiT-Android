@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,8 +30,11 @@ public class editarPerfil extends Activity {
 
 		userID = getIntent().getExtras().getString("user-id");
 		res = getIntent().getExtras().getStringArrayList("perfil");		
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.editar_perfil);
+		
+		TextView txt_top = (TextView) findViewById(R.id.txt_top);
+		txt_top.setText(".:: Editar Perfil ::.");
 
 		getInfo();
 

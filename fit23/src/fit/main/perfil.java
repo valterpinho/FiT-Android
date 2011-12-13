@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ public class perfil extends Activity {
 
 		d = ProgressDialog.show(this, Utils.header, Utils.text);
 		new getPerfil().execute();
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.perfil);
 
 	}
@@ -136,6 +137,10 @@ public class perfil extends Activity {
 	}
 
 	public void setText(){
+		
+		TextView txt_top = (TextView) findViewById(R.id.txt_top);
+		txt_top.setText(".:: Pefil ::.");
+		
 		TextView tv_datanasc =(TextView)findViewById(R.id.tv_data_nasc);
 		TextView tv_email =(TextView)findViewById(R.id.tv_email);
 		TextView tv_morada =(TextView)findViewById(R.id.tv_morada);

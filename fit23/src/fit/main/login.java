@@ -3,6 +3,9 @@ package fit.main;
 
 import java.util.ArrayList;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,6 +16,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -33,13 +37,28 @@ public class login extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
-
+		
+		//ActionBar
+        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setTitle("FiT :: Welcome");
+        actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.addAction(new IntentAction(this, createShareIntent(), R.drawable.ic_title_share_default));
+		
 		//adiciona listener ao botão login
 		Button login = (Button) findViewById(R.id.btn_login);
 		login.setOnClickListener(btn_login_listener);
+		
+		Button about = (Button) findViewById(R.id.btn_about);
+		about.setOnClickListener(btn_about_listener);
+		
+		Button clear = (Button) findViewById(R.id.btn_clear);
+		clear.setOnClickListener(btn_clear_listener);
+		
 
 		//caixas de texto
 		nsocio = (EditText) findViewById(R.id.txt_nsocio);
@@ -144,4 +163,22 @@ public class login extends Activity {
 			}
 		}
 	};
+
+	private OnClickListener btn_about_listener = new OnClickListener() {
+		public void onClick(View v) {
+			AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
+			infoResultado.setTitle("About");
+			infoResultado.setMessage("FiT Android App\nLDSO 2011 @ MIEIC-FEUP");
+			infoResultado.setNeutralButton("Ok",null);
+			infoResultado.show();
+		}
+	};
+
+	private OnClickListener btn_clear_listener = new OnClickListener() {
+		public void onClick(View v) {
+			nsocio.setText("");
+			passw.setText("");
+		}
+	};
+
 }

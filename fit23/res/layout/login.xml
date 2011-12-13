@@ -1,40 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="wrap_content"
-	android:layout_weight="1"> 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 
-	<LinearLayout android:orientation="vertical"
-		android:layout_width="fill_parent" android:layout_height="wrap_content">
+	<com.markupartist.android.widget.ActionBar
+		android:id="@+id/actionbar" style="@style/ActionBar" />
 
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="@string/hello" />
-			
-		<ImageView android:id="@+id/imageView1" android:src="@drawable/logo"
-			android:layout_gravity="center" android:layout_height="150dp"
-			android:layout_width="300dp" />
-			
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="E-mail:" />
-			
-		<EditText android:layout_height="wrap_content"
-			android:layout_width="fill_parent" android:singleLine="true"
-			android:inputType="textEmailAddress"
-			android:id="@+id/txt_nsocio">
-		</EditText>
+	<ImageView android:id="@+id/imageView1" android:src="@drawable/logo"
+		android:layout_gravity="center" android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
 
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="Password:" />
-		<EditText android:layout_height="wrap_content"
-			android:layout_width="fill_parent" android:inputType="textPassword"
-			android:id="@+id/txt_passw" />
-			
-		<CheckBox android:text="Remember me" android:id="@+id/cb_remember"
-			android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true"></CheckBox>
-			
-		<Button android:layout_gravity="center" android:layout_height="wrap_content"
-			android:text="Login" android:id="@+id/btn_login"
-			android:layout_width="136dp" />
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="1">
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res/fit.main"
+			android:orientation="vertical" android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="E-mail:"
+				android:paddingLeft="25dp" android:paddingBottom="5dp"
+				android:paddingTop="5dp" />
 
-	</LinearLayout>
-</ScrollView>
+			<LinearLayout android:orientation="vertical"
+				android:paddingLeft="25dp" android:paddingRight="25dp"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:paddingBottom="5dp">
+				<EditText android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:singleLine="true"
+					android:inputType="textEmailAddress" android:id="@+id/txt_nsocio">
+				</EditText>
+			</LinearLayout>
+
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="Password:"
+				android:paddingLeft="25dp" android:paddingBottom="5dp" />
+
+			<LinearLayout android:orientation="vertical"
+				android:paddingLeft="25dp" android:paddingRight="25dp"
+				android:layout_width="fill_parent" android:layout_height="wrap_content">
+				<EditText android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:inputType="textPassword"
+					android:id="@+id/txt_passw" />
+			</LinearLayout>
+			<LinearLayout android:orientation="vertical"
+				android:paddingLeft="25dp" android:paddingRight="25dp"
+				android:layout_width="fill_parent" android:layout_height="wrap_content">
+				<CheckBox android:text="Remember me" android:id="@+id/cb_remember"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:checked="true" android:textSize="16.0sp" android:textStyle="normal"
+					android:paddingTop="3dp" android:paddingBottom="3dp"></CheckBox>
+			</LinearLayout>
+
+			<LinearLayout android:orientation="horizontal"
+				android:paddingLeft="25dp" android:paddingTop="10.0dip"
+				android:paddingRight="25dp" android:paddingBottom="1.0dip"
+				android:layout_width="fill_parent" android:layout_height="wrap_content">
+				<Button android:id="@+id/btn_about" android:layout_width="0.0dip"
+					android:layout_height="fill_parent" android:text="About"
+					android:layout_weight="1.0" />
+				<Button android:id="@+id/btn_clear" android:layout_width="0.0dip"
+					android:layout_height="fill_parent" android:text="Clear"
+					android:layout_weight="1.0" />
+				<Button android:id="@+id/btn_login" android:layout_width="0.0dip"
+					android:layout_height="fill_parent" android:text="Login"
+					android:layout_weight="1.0" />
+			</LinearLayout>
+		</LinearLayout>
+	</ScrollView>
+
+</LinearLayout>

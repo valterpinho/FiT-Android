@@ -17,7 +17,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.view.Window;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class list_ginasios extends Activity {
@@ -36,7 +38,7 @@ public class list_ginasios extends Activity {
 		
 		d = ProgressDialog.show(this, Utils.header, Utils.text);
 		new getGinasios().execute();
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.listar_ginasios);
 	}
 
@@ -98,6 +100,9 @@ public class list_ginasios extends Activity {
 			}
 			else{
 				try {
+					TextView txt_top = (TextView) findViewById(R.id.txt_top);
+					txt_top.setText(".:: Contactos ::.");
+					
 					getInfo();
 				}catch (Exception e) {
 					e.printStackTrace();

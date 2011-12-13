@@ -18,7 +18,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -40,7 +42,7 @@ public class list_notif extends Activity {
 
 		d = ProgressDialog.show(this, Utils.header, Utils.text);
 		new getNotif().execute();
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.listar_notif);
 	}
 
@@ -102,6 +104,9 @@ public class list_notif extends Activity {
 			}
 			else{
 				try {
+					TextView txt_top = (TextView) findViewById(R.id.txt_top);
+					txt_top.setText(".:: Notificações ::.");
+					
 					getInfo();
 				}catch (Exception e) {
 					e.printStackTrace();

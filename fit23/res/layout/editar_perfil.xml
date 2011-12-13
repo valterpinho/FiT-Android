@@ -1,39 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:layout_weight="1"> 
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:weightSum="1" >
 
-    <TableLayout
-        android:id="@+id/tableLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dip"
-                android:src="@drawable/plano_treino" >
-            </ImageView>
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="20dip"
-                android:text="Perfil"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
-        </TableRow>
-    </TableLayout>
+	
+		<!-- Barra Superior comum a toda a app -->
+		<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/tableLayout1">
+			<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+				<ImageView android:src="@drawable/app_icon" android:layout_height="wrap_content" android:id="@+id/imageView2" android:layout_width="wrap_content"></ImageView>
+				<TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:text="Texto" android:layout_width="wrap_content" android:id="@+id/txt_top" android:paddingLeft="25dip" android:layout_gravity="center_vertical|center_horizontal"></TextView>
+			</TableRow>
+		</TableLayout>
 
     <TableLayout
         android:id="@+id/tableLayout1"
@@ -56,7 +40,7 @@
 
             <EditText
                 android:id="@+id/et_nome"
-                android:ems="11"
+                android:ems="10"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -82,7 +66,7 @@
 
             <EditText
                 android:id="@+id/et_email"
-                android:ems="11"
+                android:ems="10"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -104,7 +88,7 @@
 
             <EditText
                 android:id="@+id/et_data_nasc"
-                android:ems="11"
+                android:ems="10"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="date"
@@ -126,7 +110,7 @@
 
             <EditText
                 android:id="@+id/et_telefone"
-                android:ems="11"
+                android:ems="10"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
@@ -148,7 +132,7 @@
 
             <EditText
                 android:id="@+id/et_morada"
-                android:ems="11"
+                android:ems="10"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true" />
@@ -163,4 +147,6 @@
         android:layout_marginTop="50px"
         android:text="Guardar Alterações" />
 
+
 </LinearLayout>
+</ScrollView>
