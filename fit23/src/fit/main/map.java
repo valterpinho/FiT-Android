@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -31,6 +30,8 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class map extends MapActivity {
 
@@ -48,8 +49,13 @@ public class map extends MapActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.map);
 		
-		TextView txt_top = (TextView) findViewById(R.id.txt_top);
-		txt_top.setText(".:: Ginásio Mais Próximo ::.");
+		//ActionBar
+        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setTitle("FiT :: Localização");
+        actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
+		
 
 		Bundle bu = getIntent().getExtras();
 		userID = bu.getString("user-id");
@@ -245,5 +251,12 @@ public class map extends MapActivity {
 			alert.show();
 		}
 	}
+	
+	//metodos actionBar
+    public Intent createLogoutIntent(Context context) {
+        Intent i = new Intent(context, login.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
+    }
 
 }

@@ -9,9 +9,13 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -45,6 +49,14 @@ public class plano_treino extends Activity{
 		d = ProgressDialog.show(this, Utils.header, Utils.text);
 
 		setContentView(R.layout.plano_treino);
+		
+		//ActionBar
+        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setTitle("FiT :: Plano de Treino");
+        actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
+		
 	}	
 
 	private class getPlanos extends AsyncTask<Bundle, Integer, Intent> {
@@ -123,9 +135,6 @@ public class plano_treino extends Activity{
 
 			} else //se existirem planos de treino vai obter 
 				try {
-					TextView txt_top = (TextView) findViewById(R.id.txt_top);
-					txt_top.setText(".:: Plano de Treino ::.");
-					
 					getInfo(b);
 				} catch (ParserConfigurationException e) {
 					// TODO Auto-generated catch block
@@ -261,4 +270,11 @@ public class plano_treino extends Activity{
 			Logger.getLogger(plano_treino.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
+	//metodos actionBar
+    public Intent createLogoutIntent(Context context) {
+        Intent i = new Intent(context, login.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
+    }
 }

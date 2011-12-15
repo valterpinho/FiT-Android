@@ -41,14 +41,15 @@ public class login extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
-		
+
 		//ActionBar
         ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setTitle("FiT :: Welcome");
+        actionBar.setTitle("FiT :: Bem-vindo");
         actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
         //actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
-		
+
+        
 		//adiciona listener ao botão login
 		Button login = (Button) findViewById(R.id.btn_login);
 		login.setOnClickListener(btn_login_listener);
@@ -59,7 +60,7 @@ public class login extends Activity {
 		Button clear = (Button) findViewById(R.id.btn_clear);
 		clear.setOnClickListener(btn_clear_listener);
 		
-
+		
 		//caixas de texto
 		nsocio = (EditText) findViewById(R.id.txt_nsocio);
 		passw = (EditText) findViewById(R.id.txt_passw);

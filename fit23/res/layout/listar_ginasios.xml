@@ -1,61 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:weightSum="1" >
-    
-    <!-- Barra Superior comum a toda a app -->
-		<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/tableLayout1">
-			<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
-				<ImageView android:src="@drawable/app_icon" android:layout_height="wrap_content" android:id="@+id/imageView2" android:layout_width="wrap_content"></ImageView>
-				<TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:text="" android:layout_width="wrap_content" android:id="@+id/txt_top" android:layout_gravity="center_vertical" android:paddingLeft="25dip"></TextView>
-			</TableRow>
-		</TableLayout>
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 
-    <!--  <TableLayout
-        android:id="@+id/tableLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+	<com.markupartist.android.widget.ActionBar
+		android:id="@+id/actionbar" style="@style/ActionBar" />
 
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="1">
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res/fit.main"
+			android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dip"
-                android:src="@drawable/contactos" >
-            </ImageView>
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="20dip"
-                android:text="Contactos"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
-        </TableRow>
+			<ListView android:id="@+id/lv_gyms" android:layout_width="fill_parent"
+				android:paddingTop="20dip" android:layout_height="470dp">
+			</ListView>
 
-    </TableLayout> -->
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-
-        <ListView
-            android:id="@+id/lv_gyms"
-            android:layout_width="fill_parent"
-            android:layout_height="370dp" android:paddingTop="20dip">
-        </ListView>
-
-    </LinearLayout>
-
+		</LinearLayout>
+	</ScrollView>
 
 </LinearLayout>

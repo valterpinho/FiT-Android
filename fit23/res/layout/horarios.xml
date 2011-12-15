@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
 	<com.markupartist.android.widget.ActionBar
@@ -13,12 +14,11 @@
 			xmlns:app="http://schemas.android.com/apk/res/fit.main"
 			android:orientation="vertical" android:layout_width="fill_parent"
 			android:layout_height="fill_parent">
-
-
-			<ListView android:id="@+id/lv_planos" android:layout_width="fill_parent"
-				android:layout_height="370dp" android:paddingTop="20px">
-			</ListView>
-
+	
+		<android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+		
 		</LinearLayout>
 	</ScrollView>
 

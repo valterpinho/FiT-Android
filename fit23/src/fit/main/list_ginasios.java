@@ -9,9 +9,13 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -21,7 +25,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 
@@ -43,6 +46,14 @@ public class list_ginasios extends Activity {
 		new getGinasios().execute();
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.listar_ginasios);
+		
+		//ActionBar
+        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setTitle("FiT :: Contactos");
+        actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
+		
 	}
 
 	private class getGinasios extends AsyncTask<String, Integer, Intent> {
@@ -102,10 +113,7 @@ public class list_ginasios extends Activity {
 
 			}
 			else{
-				try {
-					TextView txt_top = (TextView) findViewById(R.id.txt_top);
-					txt_top.setText(".:: Contactos ::.");
-					
+				try {				
 					getInfo();
 				}catch (Exception e) {
 					e.printStackTrace();
@@ -159,4 +167,11 @@ public class list_ginasios extends Activity {
 			Logger.getLogger(listar_planos.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
+	//metodos actionBar
+    public Intent createLogoutIntent(Context context) {
+        Intent i = new Intent(context, login.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
+    }
 }
