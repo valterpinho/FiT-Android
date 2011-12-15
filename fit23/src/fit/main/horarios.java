@@ -1,6 +1,6 @@
 package fit.main;
 
-import android.sup
+/*import android.sup
 
 public static class horarios extends FragmentPagerAdapter {
     public MyAdapter(FragmentManager fm) {
@@ -16,4 +16,4 @@ public static class horarios extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         return ArrayListFragment.newInstance(position);
     }
-}
+}*/

@@ -27,7 +27,7 @@ public class menu extends Activity {
 		//ActionBar
         ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
         actionBar.setTitle("FiT :: Menu Principal");
-        actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
+        //actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
         //actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
 		

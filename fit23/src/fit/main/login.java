@@ -4,7 +4,6 @@ package fit.main;
 import java.util.ArrayList;
 
 import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -45,9 +44,9 @@ public class login extends Activity {
 		//ActionBar
         ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
         actionBar.setTitle("FiT :: Bem-vindo");
-        actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
+        //actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
         //actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
+        //actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
 
         
 		//adiciona listener ao botão login

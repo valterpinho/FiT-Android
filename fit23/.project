@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>fit</name>
+	<name>FiT</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -30,11 +30,4 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>android_widget_actionbar_src</name>
-			<type>2</type>
-			<locationURI>_android_android_widget_actionbar_234611b2/src</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-	<com.markupartist.android.widget.ActionBar
-		android:id="@+id/actionbar" style="@style/ActionBar" />
+    <com.markupartist.android.widget.ActionBar
+        android:id="@+id/actionbar"
+        style="@style/ActionBar" />
 
-	<ScrollView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_weight="1">
-		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			xmlns:app="http://schemas.android.com/apk/res/fit.main"
-			android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
 
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res/fit.main"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-			<ListView android:id="@+id/lv_gyms" android:layout_width="fill_parent"
-				android:paddingTop="20dip" android:layout_height="470dp">
-			</ListView>
-
-		</LinearLayout>
-	</ScrollView>
+            <ListView
+                android:id="@+id/lv_gyms"
+                android:layout_width="fill_parent"
+                android:layout_height="470dp"
+                android:paddingTop="20dip" >
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
