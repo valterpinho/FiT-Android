@@ -45,6 +45,9 @@ public class menu extends Activity {
 		
 		LinearLayout contactos = (LinearLayout) findViewById(R.id.layout_contactos);
 		contactos.setOnClickListener(lstn_contactos);
+		
+		LinearLayout aulas = (LinearLayout) findViewById(R.id.layout_aulas);
+		aulas.setOnClickListener(lstn_aulas);
 
 		//falta adicionar listeners aos outros layouts/botoes
 	}
@@ -108,6 +111,20 @@ public class menu extends Activity {
 			Bundle b = new Bundle();
 			
 			Intent i = new Intent(menu.this, list_ginasios.class);
+
+			b.putString("user-id", userID);
+
+			i.putExtras(b);
+			
+			startActivity(i);
+		}
+	};
+	
+	private OnClickListener lstn_aulas = new OnClickListener() {
+		public void onClick(View v) {
+			Bundle b = new Bundle();
+			
+			Intent i = new Intent(menu.this, horarios.class);
 
 			b.putString("user-id", userID);
 

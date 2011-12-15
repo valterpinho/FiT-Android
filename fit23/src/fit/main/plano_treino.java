@@ -264,7 +264,7 @@ public class plano_treino extends Activity{
 			}
 
 			// By using setAdpater method in listview we an add string array in list.
-			lv_exerc.setAdapter(new list_exercs(this, android.R.layout.simple_list_item_1 , lmi));
+			lv_exerc.setAdapter(new list_exercs(getApplicationContext(), android.R.layout.simple_list_item_1 , lmi));
 
 		} catch (IOException ex) {
 			Logger.getLogger(plano_treino.class.getName()).log(Level.SEVERE, null, ex);
