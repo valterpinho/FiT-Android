@@ -72,9 +72,10 @@ containing a value of this type.
         public static final int btn_about=0x7f090026;
         public static final int btn_clear=0x7f090027;
         public static final int btn_login=0x7f090028;
+        public static final int btn_marcar=0x7f090057;
         public static final int btn_save_changes=0x7f090019;
         public static final int cb_remember=0x7f090025;
-        public static final int editar=0x7f09004c;
+        public static final int editar=0x7f09005b;
         public static final int et_data_nasc=0x7f090014;
         public static final int et_email=0x7f090011;
         public static final int et_morada=0x7f090018;
@@ -107,8 +108,8 @@ containing a value of this type.
         public static final int map_view=0x7f090029;
         public static final int maquina_tipo=0x7f09001c;
         public static final int nome=0x7f09001b;
-        public static final int novo_plano=0x7f09004e;
-        public static final int planos_anteriores=0x7f09004d;
+        public static final int novo_plano=0x7f09005d;
+        public static final int planos_anteriores=0x7f09005c;
         public static final int screen=0x7f090000;
         public static final int subitem2=0x7f09001d;
         public static final int tableLayout1=0x7f09000b;
@@ -116,6 +117,8 @@ containing a value of this type.
         public static final int tableRow2=0x7f09000c;
         public static final int tableRow3=0x7f09000f;
         public static final int tableRow4=0x7f090012;
+        public static final int tableRow5=0x7f090051;
+        public static final int tableRow6=0x7f090054;
         public static final int textView1=0x7f09002d;
         public static final int textView2=0x7f090030;
         public static final int textView3=0x7f090033;
@@ -125,18 +128,30 @@ containing a value of this type.
         public static final int textView7=0x7f09003f;
         public static final int textView8=0x7f090042;
         public static final int tv_alturaplano=0x7f090045;
-        public static final int tv_conteudo=0x7f09004a;
+        public static final int tv_conteudo=0x7f090059;
         public static final int tv_data_nasc=0x7f090013;
         public static final int tv_dataplano=0x7f090044;
+        public static final int tv_diponiveis=0x7f090055;
+        public static final int tv_disponiveis_v=0x7f090056;
+        public static final int tv_duracao=0x7f09004f;
+        public static final int tv_duracao_v=0x7f090050;
         public static final int tv_email=0x7f090010;
+        public static final int tv_hora=0x7f09004b;
+        public static final int tv_hora_v=0x7f09004c;
+        public static final int tv_lotacao=0x7f090052;
+        public static final int tv_lotacao_v=0x7f090053;
         public static final int tv_morada=0x7f090017;
         public static final int tv_nome=0x7f09000d;
+        public static final int tv_nomeaula=0x7f090049;
+        public static final int tv_nomeaula_v=0x7f09004a;
         public static final int tv_pesoplano=0x7f090046;
+        public static final int tv_staff=0x7f09004d;
+        public static final int tv_staff_v=0x7f09004e;
         public static final int tv_telefone=0x7f090015;
-        public static final int tv_titulo=0x7f090049;
+        public static final int tv_titulo=0x7f090058;
         public static final int txt_nsocio=0x7f090023;
         public static final int txt_passw=0x7f090024;
-        public static final int ver_percurso=0x7f09004b;
+        public static final int ver_percurso=0x7f09005a;
         public static final int viewPager=0x7f09001a;
     }
     public static final class layout {
@@ -154,7 +169,8 @@ containing a value of this type.
         public static final int menu=0x7f03000b;
         public static final int perfil=0x7f03000c;
         public static final int plano_treino=0x7f03000d;
-        public static final int ver_notificacao=0x7f03000e;
+        public static final int reservaraulas=0x7f03000e;
+        public static final int ver_notificacao=0x7f03000f;
     }
     public static final class menu {
         public static final int menu_map=0x7f080000;

@@ -185,7 +185,7 @@ public class map extends MapActivity {
 			
 			GeoPoint gp_center = new GeoPoint((lat+myLocation.getLatitudeE6())/2, (lng+myLocation.getLongitudeE6())/2);
 			mapController.animateTo(gp_center); //calcular ponto medio?
-			mapController.zoomToSpan(Math.abs(lat+myLocation.getLatitudeE6()), Math.abs(lng+myLocation.getLongitudeE6()));
+			mapController.zoomToSpan(Math.abs(lat-myLocation.getLatitudeE6()), Math.abs(lng-myLocation.getLongitudeE6()));
 		}
 	}
 

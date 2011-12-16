@@ -105,11 +105,9 @@ public class login extends Activity {
 				.commit();
 			}
 
-			String extension = "sessions.xml";
 			String rNode = "hash";
 			String[] fields = {"email", "password"};
 			String[] values = {str_nsocio, str_passw};
-			//String[] values = {"jpenedos@gmail.com", "123456"};
 			String[] responseFields = {"token"};
 			ArrayList<String> response = null;
 
@@ -117,7 +115,7 @@ public class login extends Activity {
 			if(isNetworkAvailable()){
 
 				try {
-					response = Utils.POST(extension, rNode, responseFields, fields, values);
+					response = Utils.POST("sessions.xml", rNode, responseFields, fields, values);
 
 					if(response.get(0).equals("149")){
 						AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);

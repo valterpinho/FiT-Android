@@ -23,11 +23,14 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 
 public class horarios extends Activity {
-	
+
 	ActionBar actionBar;
 	ProgressDialog d;
 	ArrayList<String> res = null;
@@ -55,7 +58,6 @@ public class horarios extends Activity {
 		actionBar = (ActionBar) findViewById(R.id.actionbar);
 		actionBar.setTitle("FiT :: Aulas :: Segunda");
 		actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
-		//actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
 
 		new getHorario().execute(bu);
@@ -68,7 +70,7 @@ public class horarios extends Activity {
 
 
 		protected Intent doInBackground(Bundle... bundles) {
-			String s[] = {"dia", "hora", "duracao", "estudio", "staff", "modalidade"};
+			String s[] = {"dia", "id", "hora", "duracao", "estudio", "staff", "modalidade"};
 
 			try {
 
@@ -114,7 +116,6 @@ public class horarios extends Activity {
 		private DialogInterface.OnClickListener empty_listener = new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
-				// TODO Auto-generated method stub
 				horarios.this.finish();
 				startActivity(i);
 			}
@@ -144,48 +145,48 @@ public class horarios extends Activity {
 					e.printStackTrace();
 				}
 
-			d.dismiss();
+				d.dismiss();
 		}
 	}
-	
+
 	public void getInfo(Bundle b) throws ParserConfigurationException, SAXException{				
 
-		for(int i=0; i < res.size(); i+=6){
+		for(int i=0; i < res.size(); i+=7){
 			int dia = Integer.parseInt(res.get(i));
 			switch (dia){
 			case 0:
-				for(int j = i+1; j <= i + 5; j++)
+				for(int j = i+1; j <= i + 6; j++)
 					segunda.add(res.get(j));
 				break;
 			case 1:
-				for(int j = i+1; j <= i + 5; j++)
+				for(int j = i+1; j <= i + 6; j++)
 					terca.add(res.get(j));
 				break;
 			case 2:
-				for(int j = i+1; j <= i + 5; j++)
+				for(int j = i+1; j <= i + 6; j++)
 					quarta.add(res.get(j));
 				break;
 			case 3:
-				for(int j = i+1; j <= i + 5; j++)
+				for(int j = i+1; j <= i + 6; j++)
 					quinta.add(res.get(j));
 				break;
 			case 4:
-				for(int j = i+1; j <= i + 5; j++)
+				for(int j = i+1; j <= i + 6; j++)
 					sexta.add(res.get(j));
 				break;
 			case 5:
-				for(int j = i+1; j <= i + 5; j++)
+				for(int j = i+1; j <= i + 6; j++)
 					sabado.add(res.get(j));
 				break;
 			case 6:
-				for(int j = i+1; j <= i + 5; j++)
+				for(int j = i+1; j <= i + 6; j++)
 					domingo.add(res.get(j));
 				break;
 			default:
 				break;
 			}		
 		}
-		
+
 		ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 		MyPagerAdapter adapter = new MyPagerAdapter(this);
 		viewPager.setAdapter(adapter);
@@ -193,7 +194,6 @@ public class horarios extends Activity {
 
 			@Override
 			public void onPageSelected(int page) {
-				//tvHeader.setText("Page " + (page + 1));
 				switch (page){
 				case 0:
 					actionBar.setTitle("FiT :: Aulas :: Segunda");
@@ -220,11 +220,11 @@ public class horarios extends Activity {
 					break;
 				}				
 			}
-			
+
 			@Override
 			public void onPageScrolled(int position, float arg1, int arg2) {
 				// TODO Auto-generated method stub
-					
+
 			}
 
 			@Override
@@ -240,14 +240,54 @@ public class horarios extends Activity {
 
 		public MyPagerAdapter(Context context) {
 			views = new ArrayList<LinearLayout>();
-			
-			views.add(new diaSemana(context, segunda));
-			views.add(new diaSemana(context, terca));
-			views.add(new diaSemana(context, quarta));
-			views.add(new diaSemana(context, quinta));
-			views.add(new diaSemana(context, sexta));
-			views.add(new diaSemana(context, sabado));
-			views.add(new diaSemana(context, domingo));
+
+			diaSemana seg = new diaSemana(context, segunda);
+			diaSemana ter = new diaSemana(context, terca);
+			diaSemana qua = new diaSemana(context, quarta);
+			diaSemana qui = new diaSemana(context, quinta);
+			diaSemana sex = new diaSemana(context, sexta);
+			diaSemana sab = new diaSemana(context, sabado);
+			diaSemana dom = new diaSemana(context, domingo);
+
+			views.add(seg);
+			views.add(ter);
+			views.add(qua);
+			views.add(qui);
+			views.add(sex);
+			views.add(sab);
+			views.add(dom);
+
+			setListner(seg.getListView(), segunda);
+			setListner(ter.getListView(), terca);
+			setListner(qua.getListView(), quarta);
+			setListner(qui.getListView(), quinta);
+			setListner(sex.getListView(), sexta);
+			setListner(sab.getListView(), sabado);
+			setListner(dom.getListView(), domingo);
+
+		}
+
+		public void setListner(ListView lv, final ArrayList<String> dia){
+			if(dia.size() != 0)
+				lv.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+
+						ArrayList<String> aula = new ArrayList<String>();
+
+						for(int i = pos * 6; i < pos*6+6; i++)
+							aula.add(dia.get(i));
+
+						Bundle reserva = new Bundle();
+						reserva.putString("user-id", userID);
+						reserva.putStringArrayList("aula", aula);
+						Intent in = new Intent (horarios.this, reservarAulas.class);
+						in.putExtras(reserva);
+						startActivity(in);
+
+					}
+				});
 		}
 
 		@Override

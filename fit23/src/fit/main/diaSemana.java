@@ -4,45 +4,92 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 
 //dia da semana na apresentaçao do horario de aulas
 public class diaSemana extends LinearLayout {
 
+	String token="";
+	ArrayList<String> ids = new ArrayList<String>();
+	ListView lv_aulas = null;
 
-	public diaSemana(Context context, AttributeSet attrs, ArrayList<String> dia) {
+	public diaSemana(Context context, AttributeSet attrs, ArrayList<String> dia, String token) {
 		super(context, attrs);
 		init(dia, context);
+		this.token = token;
 	}
 
 	public diaSemana(Context context, ArrayList<String> dia) {
 		super(context);
 		init(dia, context);
 	}
+	
+	public ListView getListView(){
+			return lv_aulas;
+	}
+	
+	public ArrayList<String> getIds(){
+		return ids;
+	}
 
 	private void init(ArrayList<String> dia, Context context) {
 
-		ListView listView = new ListView(getContext());
+		lv_aulas = new ListView(getContext());
 		//o array passado contem em cada posicao os dois conteudos: item e subitem
-		//{"hora", "duracao", "estudio", "staff", "modalidade"};
+		//{"id", "hora", "duracao", "estudio", "staff", "modalidade"};
 		ArrayList<ListMenuItem> lmi = new ArrayList<ListMenuItem>();
-		if(dia.size() != 0)
-			for(int i = 0; i < dia.size(); i+=5){				
-				lmi.add(new ListMenuItem(dia.get(i+3),
-						"Início: " + dia.get(i) + "h   |   Duração: " + dia.get(i+1) + "min",
-						"Staff: " + dia.get(i+3) + "   |   Sala: " + dia.get(i+2)));
+		if(dia.size() != 0){
+			for(int i = 0; i < dia.size(); i+=6){
+
+				ids.add(dia.get(i));
+
+				lmi.add(new ListMenuItem(dia.get(i+5),
+						"Início: " + dia.get(i+1) + "h   |   Duração: " + dia.get(i+2) + "min",
+						"Staff: " + dia.get(i+4) + "   |   Sala: " + dia.get(i+3)));
 			}
+		}
 		else //mensagem quando não há aulas no dia
 			lmi.add(new ListMenuItem("Não há aulas neste dia!", null,null));
-			
+
 
 		// By using setAdpater method in listview we an add string array in list.
-		listView.setAdapter(new list_exercs(context, android.R.layout.simple_list_item_1 , lmi));
+		lv_aulas.setAdapter(new list_exercs(context, android.R.layout.simple_list_item_1 , lmi));
 
 		LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-		addView(listView, params);
-	}
+		addView(lv_aulas, params);
 
+		if(dia.size() != 0){
+
+			lv_aulas.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+					String rNode = "reserva";
+					String[] fields = {"token","id"};
+					//id aula, token
+					String[] values = {token};
+					String[] responseFields = {"message"};
+					ArrayList<String> response = null;
+
+					try {
+						response = Utils.POST("reserva_aulas.xml", rNode, responseFields, fields, values);
+						if(response != null){
+
+
+						}
+						else{
+
+						}
+					} catch (Exception e){
+
+					}
+				}
+			});
+		}
+	}
 }

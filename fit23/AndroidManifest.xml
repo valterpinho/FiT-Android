@@ -32,6 +32,7 @@
 		<activity android:name=".map" android:label="@string/app_name"></activity>
 		<activity android:name=".list_ginasios" android:label="@string/app_name"></activity>
 		<activity android:name=".horarios" android:label="@string/app_name"></activity>
+		<activity android:name=".reservarAulas" android:label="@string/app_name"></activity>
 
 	</application>
 </manifest>
