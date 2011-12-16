@@ -68,7 +68,7 @@ public class horarios extends Activity {
 
 
 		protected Intent doInBackground(Bundle... bundles) {
-			String s[] = {"dia", "hora", "estudio", "staff", "modalidade"};
+			String s[] = {"dia", "hora", "duracao", "estudio", "staff", "modalidade"};
 
 			try {
 
@@ -150,35 +150,35 @@ public class horarios extends Activity {
 	
 	public void getInfo(Bundle b) throws ParserConfigurationException, SAXException{				
 
-		for(int i=0; i < res.size(); i+=5){
+		for(int i=0; i < res.size(); i+=6){
 			int dia = Integer.parseInt(res.get(i));
 			switch (dia){
 			case 0:
-				for(int j = i+1; j <= i + 4; j++)
+				for(int j = i+1; j <= i + 5; j++)
 					segunda.add(res.get(j));
 				break;
 			case 1:
-				for(int j = i+1; j <= i + 4; j++)
+				for(int j = i+1; j <= i + 5; j++)
 					terca.add(res.get(j));
 				break;
 			case 2:
-				for(int j = i+1; j <= i + 4; j++)
+				for(int j = i+1; j <= i + 5; j++)
 					quarta.add(res.get(j));
 				break;
 			case 3:
-				for(int j = i+1; j <= i + 4; j++)
+				for(int j = i+1; j <= i + 5; j++)
 					quinta.add(res.get(j));
 				break;
 			case 4:
-				for(int j = i+1; j <= i + 4; j++)
+				for(int j = i+1; j <= i + 5; j++)
 					sexta.add(res.get(j));
 				break;
 			case 5:
-				for(int j = i+1; j <= i + 4; j++)
+				for(int j = i+1; j <= i + 5; j++)
 					sabado.add(res.get(j));
 				break;
 			case 6:
-				for(int j = i+1; j <= i + 4; j++)
+				for(int j = i+1; j <= i + 5; j++)
 					domingo.add(res.get(j));
 				break;
 			default:
