@@ -4,9 +4,13 @@ import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.IntentAction;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -50,6 +54,31 @@ public class menu extends Activity {
 		aulas.setOnClickListener(lstn_aulas);
 
 		//falta adicionar listeners aos outros layouts/botoes
+	}
+	
+	//menu about
+	@Override
+	//inflating our own menu
+	public boolean onCreateOptionsMenu(Menu menu) {
+		//super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_login, menu);
+		return true;
+	}
+
+	@Override
+	//implement a reaction of our menu
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() == R.id.about) {
+			AlertDialog.Builder infoResultado = new AlertDialog.Builder(menu.this);
+			infoResultado.setTitle("About");
+			infoResultado.setMessage("FiT Android App\nLDSO 2011 @ MIEIC-FEUP");
+			infoResultado.setNeutralButton("Ok",null);
+			infoResultado.show();
+
+			return true;
+		}
+		return false;
 	}
 
 	private OnClickListener lstn_perfil = new OnClickListener() {

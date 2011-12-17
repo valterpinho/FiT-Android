@@ -257,17 +257,17 @@ public class horarios extends Activity {
 			views.add(sab);
 			views.add(dom);
 
-			setListner(seg.getListView(), segunda);
-			setListner(ter.getListView(), terca);
-			setListner(qua.getListView(), quarta);
-			setListner(qui.getListView(), quinta);
-			setListner(sex.getListView(), sexta);
-			setListner(sab.getListView(), sabado);
-			setListner(dom.getListView(), domingo);
+			setListner(seg.getListView(), segunda, 0);
+			setListner(ter.getListView(), terca, 1);
+			setListner(qua.getListView(), quarta, 2);
+			setListner(qui.getListView(), quinta, 3);
+			setListner(sex.getListView(), sexta, 4);
+			setListner(sab.getListView(), sabado, 5);
+			setListner(dom.getListView(), domingo, 6);
 
 		}
 
-		public void setListner(ListView lv, final ArrayList<String> dia){
+		public void setListner(ListView lv, final ArrayList<String> dia, final int diaSemana){
 			if(dia.size() != 0)
 				lv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -282,6 +282,7 @@ public class horarios extends Activity {
 						Bundle reserva = new Bundle();
 						reserva.putString("user-id", userID);
 						reserva.putStringArrayList("aula", aula);
+						reserva.putInt("diaSemana", diaSemana);
 						Intent in = new Intent (horarios.this, reservarAulas.class);
 						in.putExtras(reserva);
 						startActivity(in);

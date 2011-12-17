@@ -7,8 +7,6 @@
 	<com.markupartist.android.widget.ActionBar
 		android:id="@+id/actionbar" style="@style/ActionBar" />
 
-	<ScrollView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_weight="1">
 		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			xmlns:app="http://schemas.android.com/apk/res/fit.main"
 			android:orientation="vertical" android:layout_width="fill_parent"
@@ -25,6 +23,5 @@
 			<!-- VALTER: 0agvr1WwGiZkDKNDbkpdtqv3P2QgdsC-rADmU3Q -->
 
 		</LinearLayout>
-	</ScrollView>
 
 </LinearLayout>

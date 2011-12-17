@@ -12,9 +12,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -53,9 +57,6 @@ public class login extends Activity {
 		Button login = (Button) findViewById(R.id.btn_login);
 		login.setOnClickListener(btn_login_listener);
 		
-		Button about = (Button) findViewById(R.id.btn_about);
-		about.setOnClickListener(btn_about_listener);
-		
 		Button clear = (Button) findViewById(R.id.btn_clear);
 		clear.setOnClickListener(btn_clear_listener);
 		
@@ -72,6 +73,31 @@ public class login extends Activity {
 		//checkbox remember
 		cb_remember = (CheckBox) findViewById(R.id.cb_remember);
 
+	}
+	
+	//menu about
+	@Override
+	//inflating our own menu
+	public boolean onCreateOptionsMenu(Menu menu) {
+		//super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_login, menu);
+		return true;
+	}
+
+	@Override
+	//implement a reaction of our menu
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() == R.id.about) {
+			AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
+			infoResultado.setTitle("About");
+			infoResultado.setMessage("FiT Android App\nLDSO 2011 @ MIEIC-FEUP");
+			infoResultado.setNeutralButton("Ok",null);
+			infoResultado.show();
+
+			return true;
+		}
+		return false;
 	}
 
 	//funcao que verifica se existe ligacao a internet diponivel
@@ -159,16 +185,6 @@ public class login extends Activity {
 				infoResultado.setNeutralButton("Ok",null);
 				infoResultado.show();
 			}
-		}
-	};
-
-	private OnClickListener btn_about_listener = new OnClickListener() {
-		public void onClick(View v) {
-			AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
-			infoResultado.setTitle("About");
-			infoResultado.setMessage("FiT Android App\nLDSO 2011 @ MIEIC-FEUP");
-			infoResultado.setNeutralButton("Ok",null);
-			infoResultado.show();
 		}
 	};
 

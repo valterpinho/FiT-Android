@@ -1,6 +1,7 @@
 package fit.main;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -26,6 +27,8 @@ public class reservarAulas extends Activity {
 	ArrayList<String> res = null, aula = null;
 	ProgressDialog d;
 	Button marcar = null;
+	TextView disponiveis_v;
+	int diaSemana;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -36,9 +39,13 @@ public class reservarAulas extends Activity {
 		userID = reserva.getString("user-id");
 		//"id", "hora", "duracao", "estudio", "staff", "modalidade"
 		aula = reserva.getStringArrayList("aula");
+		diaSemana = reserva.getInt("diaSemana");
 
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.reservaraulas);
+
+		marcar = (Button) findViewById(R.id.btn_marcar);
+		marcar.setVisibility(View.GONE);
 
 		//ActionBar
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
@@ -115,23 +122,49 @@ public class reservarAulas extends Activity {
 			disponiveis.setTextColor(Color.rgb(173,32,33));
 			disponiveis.setText("Disponíveis: ");
 
-			TextView disponiveis_v = (TextView) findViewById(R.id.tv_disponiveis_v);
+			disponiveis_v = (TextView) findViewById(R.id.tv_disponiveis_v);
 			disponiveis_v.setText(res.get(0) + " lugares");
 
-			//botao marcar/desmarcar
-			marcar = (Button) findViewById(R.id.btn_marcar);
+			int dia_servidor = Integer.parseInt(res.get(3));  //Dia
+			String[] hora_servidor = res.get(4).split(":"); //Hora HH:MM
+			String tempHora = hora_v.getText().toString();
+			tempHora = tempHora.substring(0, tempHora.length()-1);
+			String hora_aula[] = tempHora.split(":");
 
 			if(res.get(0).equals("0"))
 				marcar.setVisibility(View.GONE);
-			else{
-				if(res.get(2).equals("sim"))
-					marcar.setText("Desmarcar");
-				else
-					marcar.setText("Marcar");
-	
-				Log.e("MSG", "entrou");
-				
-				marcar.setOnClickListener(btn_marcar_listner);
+			else if(diaSemana != dia_servidor)
+				marcar.setVisibility(View.GONE);
+			else if(diaSemana == dia_servidor){
+				if(Integer.parseInt(hora_servidor[0]) == Integer.parseInt(hora_aula[0])){
+					if(Integer.parseInt(hora_servidor[1]) >= Integer.parseInt(hora_aula[1]))
+						marcar.setVisibility(View.GONE);
+					else{
+						marcar.setVisibility(1);
+						if(res.get(2).equals("sim"))
+							marcar.setText("Desmarcar");
+						else
+							marcar.setText("Marcar");
+
+						Log.e("MSG", "entrou");
+
+						marcar.setOnClickListener(btn_marcar_listner);
+					}
+				}
+				else if(Integer.parseInt(hora_servidor[0]) > Integer.parseInt(hora_aula[0]))
+					marcar.setVisibility(View.GONE);
+				else{
+					marcar.setVisibility(1);
+					if(res.get(2).equals("sim"))
+						marcar.setText("Desmarcar");
+					else
+						marcar.setText("Marcar");
+
+					Log.e("MSG", "entrou");
+
+					marcar.setOnClickListener(btn_marcar_listner);
+				}
+
 			}
 		}
 	}	
@@ -156,6 +189,9 @@ public class reservarAulas extends Activity {
 								Toast.LENGTH_LONG);
 						t.show();
 						marcar.setText("Desmarcar");
+						
+						String[] nlugares = disponiveis_v.getText().toString().split(" ");
+						disponiveis_v.setText(Integer.parseInt(nlugares[0]) - 1 + " lugares");
 
 					}
 					else{
@@ -174,6 +210,9 @@ public class reservarAulas extends Activity {
 								Toast.LENGTH_LONG);
 						t.show();
 						marcar.setText("Marcar");
+						
+						String[] nlugares = disponiveis_v.getText().toString().split(" ");
+						disponiveis_v.setText(Integer.parseInt(nlugares[0]) + 1 + " lugares");
 
 					}
 					else{
@@ -192,7 +231,7 @@ public class reservarAulas extends Activity {
 	public void getInfo() {
 		try {
 
-			String s[] = {"lugares", "lotacao", "tem_reserva"};
+			String s[] = {"lugares", "lotacao", "tem_reserva", "dia", "hora"};
 			String fields[] = {"token", "aula_id"};
 			String values[] = {userID, aula.get(0)};
 			res = Utils.GET("getinfo.xml", "reserva", s, fields, values);			
