@@ -4,8 +4,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-	<com.markupartist.android.widget.ActionBar
-		android:id="@+id/actionbar" style="@style/ActionBar" />
+    <com.markupartist.android.widget.ActionBar
+        android:id="@+id/actionbar"
+        style="@style/ActionBar" />
+
+    <TextView
+        android:id="@+id/tv_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

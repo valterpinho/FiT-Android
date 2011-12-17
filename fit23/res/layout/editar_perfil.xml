@@ -88,7 +88,7 @@
 			</TableLayout>
 			<Button android:id="@+id/btn_save_changes"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal" android:layout_marginTop="50px"
+				android:layout_gravity="center_horizontal" android:layout_marginTop="25px"
 				android:text="Guardar Alterações" />
 		</LinearLayout>
 	</ScrollView>

@@ -4,11 +4,8 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 
 //dia da semana na apresentaçao do horario de aulas
@@ -62,34 +59,5 @@ public class diaSemana extends LinearLayout {
 
 		LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
 		addView(lv_aulas, params);
-
-		if(dia.size() != 0){
-
-			lv_aulas.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-					String rNode = "reserva";
-					String[] fields = {"token","id"};
-					//id aula, token
-					String[] values = {token};
-					String[] responseFields = {"message"};
-					ArrayList<String> response = null;
-
-					try {
-						response = Utils.POST("reserva_aulas.xml", rNode, responseFields, fields, values);
-						if(response != null){
-
-
-						}
-						else{
-
-						}
-					} catch (Exception e){
-
-					}
-				}
-			});
-		}
 	}
 }

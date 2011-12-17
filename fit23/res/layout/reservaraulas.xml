@@ -34,6 +34,7 @@
                         android:id="@+id/tv_nomeaula_v"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dip"
                         android:paddingTop="20dip"
                         android:text="" >
                     </TextView>
@@ -49,6 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dip"
+                        android:paddingLeft="5dip"
                         android:paddingTop="10dip"
                         android:text="" >
                     </TextView>
@@ -73,6 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dip"
+                        android:paddingLeft="5dip"
                         android:text="" >
                     </TextView>
 
@@ -95,6 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dip"
+                        android:paddingLeft="5dip"
                         android:text="" >
                     </TextView>
 
@@ -117,6 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dip"
+                        android:paddingLeft="5dip"
                         android:text="" >
                     </TextView>
 
@@ -139,6 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="25dip"
+                        android:paddingLeft="5dip"
                         android:text="" >
                     </TextView>
 
@@ -158,6 +164,19 @@
                 android:layout_height="0dip"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1.0" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:stepSize="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </RatingBar>
+
+            <TextView
+                android:id="@+id/tv_rating"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" />
         </LinearLayout>
     </ScrollView>
 

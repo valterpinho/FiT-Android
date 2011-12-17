@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -157,17 +158,37 @@ public class perfil extends Activity {
 
 	public void setText(){
 		
+		TextView tv_data_nasct = (TextView) findViewById(R.id.tv_data_nasct);
+		tv_data_nasct.setTextColor(Color.rgb(173,32,33));
+		tv_data_nasct.setText("Nascimento: ");
+		
+		TextView tv_emailt = (TextView) findViewById(R.id.tv_emailt);
+		tv_emailt.setTextColor(Color.rgb(173,32,33));
+		tv_emailt.setText("E-mail: ");
+		
+		TextView tv_moradat = (TextView) findViewById(R.id.tv_moradat);
+		tv_moradat.setTextColor(Color.rgb(173,32,33));
+		tv_moradat.setText("Morada: ");
+		
+		TextView tv_nomet = (TextView) findViewById(R.id.tv_nomet);
+		tv_nomet.setTextColor(Color.rgb(173,32,33));
+		tv_nomet.setText("Nome: ");
+		
+		TextView tv_telefonet = (TextView) findViewById(R.id.tv_telefonet);
+		tv_telefonet.setTextColor(Color.rgb(173,32,33));
+		tv_telefonet.setText("Telefone: ");
+		
 		TextView tv_datanasc =(TextView)findViewById(R.id.tv_data_nasc);
 		TextView tv_email =(TextView)findViewById(R.id.tv_email);
 		TextView tv_morada =(TextView)findViewById(R.id.tv_morada);
 		TextView tv_nome =(TextView)findViewById(R.id.tv_nome);
 		TextView tv_telefone =(TextView)findViewById(R.id.tv_telefone);
 
-		tv_datanasc.setText("Data de Nascimento: " + res.get(0));
-		tv_email.setText("E-mail: " + res.get(1));
-		tv_morada.setText("Morada: " + res.get(2));
-		tv_nome.setText("Nome: " + res.get(3));
-		tv_telefone.setText("Telefone: " + res.get(4));
+		tv_datanasc.setText(res.get(0));
+		tv_email.setText(res.get(1));
+		tv_morada.setText(res.get(2));
+		tv_nome.setText(res.get(3));
+		tv_telefone.setText(res.get(4));
 
 		//coloca a foto do socio na imageview atraves do url recebido no get
 		try {

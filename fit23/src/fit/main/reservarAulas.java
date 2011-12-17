@@ -1,7 +1,11 @@
 package fit.main;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -15,6 +19,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -125,6 +131,61 @@ public class reservarAulas extends Activity {
 			disponiveis_v = (TextView) findViewById(R.id.tv_disponiveis_v);
 			disponiveis_v.setText(res.get(0) + " lugares");
 
+			//RatingBar
+			RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingBar);
+			final TextView tv_rating = (TextView) findViewById(R.id.tv_rating);
+			
+			ratingbar.setRating(Float.parseFloat(res.get(5)));
+			
+			tv_rating.setText("Dê o seu Feedback sobre esta aula!");
+			
+			//desactiva classificação caso o user ja tenha submetido
+			if(Float.parseFloat(res.get(5)) > 0){
+				ratingbar.setEnabled(false);
+				ratingbar.setClickable(false);
+				tv_rating.setText("Feedback Submetido: " + res.get(5) + "/5");
+			}
+			
+			
+			
+			ratingbar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+
+				public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+					String rNode = "feedback";
+					String[] fields = {"token","aula_id", "valor"};
+					String[] values = {userID, aula.get(0), Float.toString(rating)};
+					String[] responseFields = {"message"};
+					ArrayList<String> response = null;
+
+					try {
+						response = Utils.POST("feedbacks.xml", rNode, responseFields, fields, values);
+
+						if(response.get(0).equals("success")){
+							
+							tv_rating.setText("Feedback Submetido: " + (int)rating + "/5");
+
+							Toast t = Toast.makeText(getApplicationContext(),
+									"Feedback submetido com sucesso!",
+									Toast.LENGTH_LONG);
+							t.show();
+						}
+						else{
+
+							Toast t = Toast.makeText(getApplicationContext(),
+									"Já submeteu feedback para esta aula!",
+									Toast.LENGTH_LONG);
+							t.show();
+
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+					}
+
+				}
+			});
+
+			//end RatingBar
+
 			int dia_servidor = Integer.parseInt(res.get(3));  //Dia
 			String[] hora_servidor = res.get(4).split(":"); //Hora HH:MM
 			String tempHora = hora_v.getText().toString();
@@ -189,7 +250,7 @@ public class reservarAulas extends Activity {
 								Toast.LENGTH_LONG);
 						t.show();
 						marcar.setText("Desmarcar");
-						
+
 						String[] nlugares = disponiveis_v.getText().toString().split(" ");
 						disponiveis_v.setText(Integer.parseInt(nlugares[0]) - 1 + " lugares");
 
@@ -210,7 +271,7 @@ public class reservarAulas extends Activity {
 								Toast.LENGTH_LONG);
 						t.show();
 						marcar.setText("Marcar");
-						
+
 						String[] nlugares = disponiveis_v.getText().toString().split(" ");
 						disponiveis_v.setText(Integer.parseInt(nlugares[0]) + 1 + " lugares");
 
@@ -231,10 +292,13 @@ public class reservarAulas extends Activity {
 	public void getInfo() {
 		try {
 
-			String s[] = {"lugares", "lotacao", "tem_reserva", "dia", "hora"};
+			String s[] = {"lugares", "lotacao", "tem_reserva", "dia", "hora", "feedback"};
 			String fields[] = {"token", "aula_id"};
 			String values[] = {userID, aula.get(0)};
-			res = Utils.GET("getinfo.xml", "reserva", s, fields, values);			
+			Log.e("ERRO", "aqui_1");
+			res = Utils.GET("getinfo.xml", "reserva", s, fields, values);
+			Log.e("ERRO", "aqui_2");
+			Log.e("ERRO", ""+res);
 
 		} catch (Exception e){
 			Toast t = Toast.makeText(getApplicationContext(),

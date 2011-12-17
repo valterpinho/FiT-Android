@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 
@@ -136,7 +137,12 @@ public class horarios extends Activity {
 
 			} else //se existirem aulas vai obter 
 				try {
+					
+					TextView tv_top = (TextView) findViewById(R.id.tv_top);
+					tv_top.setText("« Anterior              |              Seguinte »");
+					
 					getInfo(b);
+					
 				} catch (ParserConfigurationException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

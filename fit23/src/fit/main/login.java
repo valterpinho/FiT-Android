@@ -72,6 +72,7 @@ public class login extends Activity {
 
 		//checkbox remember
 		cb_remember = (CheckBox) findViewById(R.id.cb_remember);
+		//cb_remember.setChecked(false);
 
 	}
 	
@@ -157,7 +158,7 @@ public class login extends Activity {
 						AlertDialog.Builder infoResultado = new AlertDialog.Builder(login.this);
 						infoResultado.setTitle("Erro");
 						infoResultado.setMessage("A aplicação falhou!");
-						infoResultado.setNeutralButton("Okay",null);
+						infoResultado.setNeutralButton("Ok",null);
 						infoResultado.show();
 						response.clear();
 					}					

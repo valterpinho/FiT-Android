@@ -1,50 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-	<com.markupartist.android.widget.ActionBar
-		android:id="@+id/actionbar" style="@style/ActionBar" />
+    <com.markupartist.android.widget.ActionBar
+        android:id="@+id/actionbar"
+        style="@style/ActionBar" />
 
-	
-		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			xmlns:app="http://schemas.android.com/apk/res/fit.main"
-			android:orientation="vertical" android:layout_width="fill_parent"
-			android:layout_height="fill_parent">
-			<TableLayout android:id="@+id/tableLayout1"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
-				<TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
-					<TextView android:layout_width="wrap_content"
-						android:layout_height="wrap_content" android:text=""
-						android:id="@+id/tv_dataplano"></TextView>
-				</TableRow>
-				<TableRow android:id="@+id/tableRow3" android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
-					<TextView android:layout_width="wrap_content"
-						android:layout_height="wrap_content" android:id="@+id/tv_alturaplano"
-						android:text=""></TextView>
-				</TableRow>
-				<TableRow android:id="@+id/tableRow4" android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
-					<TextView android:layout_width="wrap_content"
-						android:layout_height="wrap_content" android:id="@+id/tv_pesoplano"
-						android:text=""></TextView>
-				</TableRow>
-			</TableLayout>
-			<TextView android:id="@+id/exercicios"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:layout_height="wrap_content" android:layout_width="wrap_content"
-				android:paddingTop="10dip"></TextView>
-			<LinearLayout android:id="@+id/linearLayout1"
-				android:layout_width="fill_parent" android:layout_height="fill_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res/fit.main"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-				<ListView android:id="@+id/lv_exercicios"
-					android:layout_width="fill_parent" android:layout_height="454dp">
-				</ListView>
-			</LinearLayout>
+        <TableLayout
+            android:id="@+id/tableLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
-		</LinearLayout>
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tv_dataplano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="" >
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tv_alturaplano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="" >
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tv_pesoplano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="" >
+                </TextView>
+            </TableRow>
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/exercicios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dip"
+            android:textAppearance="?android:attr/textAppearanceLarge" >
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <ListView
+                android:id="@+id/lv_exercicios"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
