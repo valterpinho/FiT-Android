@@ -31,14 +31,6 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/tv_nomeaula"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="20dip"
-                        android:text="" >
-                    </TextView>
-
-                    <TextView
                         android:id="@+id/tv_nomeaula_v"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -124,6 +116,7 @@
                         android:id="@+id/tv_lotacao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="10dip"
                         android:text="" >
                     </TextView>
 
@@ -131,6 +124,7 @@
                         android:id="@+id/tv_lotacao_v"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="10dip"
                         android:text="" >
                     </TextView>
                 </TableRow>
@@ -144,6 +138,7 @@
                         android:id="@+id/tv_diponiveis"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="25dip"
                         android:text="" >
                     </TextView>
 
@@ -151,11 +146,11 @@
                         android:id="@+id/tv_disponiveis_v"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="25dip"
                         android:text="" >
                     </TextView>
                 </TableRow>
             </TableLayout>
-
 
             <Button
                 android:id="@+id/btn_marcar"

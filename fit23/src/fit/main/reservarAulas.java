@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,9 +76,11 @@ public class reservarAulas extends Activity {
 			//nome
 			TextView nomeaula_v = (TextView) findViewById(R.id.tv_nomeaula_v);
 			nomeaula_v.setText(aula.get(5));
+			nomeaula_v.setTextSize(20);
 
 			//hora
 			TextView hora = (TextView) findViewById(R.id.tv_hora);
+			hora.setTextColor(Color.rgb(173,32,33));
 			hora.setText("Início: ");
 
 			TextView hora_v = (TextView) findViewById(R.id.tv_hora_v);
@@ -85,6 +88,7 @@ public class reservarAulas extends Activity {
 
 			//staff
 			TextView staff = (TextView) findViewById(R.id.tv_staff);
+			staff.setTextColor(Color.rgb(173,32,33));
 			staff.setText("Staff: ");
 
 			TextView staff_v = (TextView) findViewById(R.id.tv_staff_v);
@@ -92,6 +96,7 @@ public class reservarAulas extends Activity {
 
 			//duracao
 			TextView duracao = (TextView) findViewById(R.id.tv_duracao);
+			duracao.setTextColor(Color.rgb(173,32,33));
 			duracao.setText("Duração: ");
 
 			TextView duracao_v = (TextView) findViewById(R.id.tv_duracao_v);
@@ -99,6 +104,7 @@ public class reservarAulas extends Activity {
 
 			//lotacao
 			TextView lotacao = (TextView) findViewById(R.id.tv_lotacao);
+			lotacao.setTextColor(Color.rgb(173,32,33));
 			lotacao.setText("Lotação: ");
 
 			TextView lotacao_v = (TextView) findViewById(R.id.tv_lotacao_v);
@@ -106,6 +112,7 @@ public class reservarAulas extends Activity {
 
 			//disponiveis
 			TextView disponiveis = (TextView) findViewById(R.id.tv_diponiveis);
+			disponiveis.setTextColor(Color.rgb(173,32,33));
 			disponiveis.setText("Disponíveis: ");
 
 			TextView disponiveis_v = (TextView) findViewById(R.id.tv_disponiveis_v);

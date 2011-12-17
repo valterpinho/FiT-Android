@@ -40,6 +40,7 @@ public class map_overlay extends ItemizedOverlay<OverlayItem> {
       AlertDialog.Builder dialog = new AlertDialog.Builder(context);
       dialog.setTitle(item.getTitle());
       dialog.setMessage(item.getSnippet());
+      dialog.setNeutralButton("Ok",null);
       dialog.show();
       return true;
    }

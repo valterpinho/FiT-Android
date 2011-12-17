@@ -146,11 +146,14 @@ public class map extends MapActivity {
 	void criaMapa(){
 		mapView = (MapView) findViewById(R.id.map_view);       
 		mapView.setBuiltInZoomControls(true);
+		mapView.getZoomButtonsController().setAutoDismissed(false);
 		mapView.setSatellite(true);
 
 		List<Overlay> mapOverlays = mapView.getOverlays();
-		Drawable drawable = this.getResources().getDrawable(R.drawable.plano_treino);
-		map_overlay itemizedOverlay = new map_overlay(drawable, this);
+		Drawable drawable_person = this.getResources().getDrawable(R.drawable.person);
+		Drawable drawable_gym = this.getResources().getDrawable(R.drawable.gym);
+		map_overlay itemizedOverlay_person = new map_overlay(drawable_person, this);
+		map_overlay itemizedOverlay_gym = new map_overlay(drawable_gym, this);
 
 		getLocation();
 
@@ -168,7 +171,7 @@ public class map extends MapActivity {
 
 			//myPosition
 			OverlayItem overlayitem = new OverlayItem(myLocation, "Posição Atual", "Latitude: " + myLocation.getLatitudeE6() + "  " + "Longitude: " + myLocation.getLongitudeE6());
-			itemizedOverlay.addOverlay(overlayitem);
+			itemizedOverlay_person.addOverlay(overlayitem);
 			
 			//nearestGym
 			int lat = (int) (Double.parseDouble(near_gym.get(3)) * 1E6);
@@ -176,10 +179,11 @@ public class map extends MapActivity {
 			GeoPoint gp = new GeoPoint(lat, lng);
 			destiny = gp;
 			OverlayItem overlayitem2 = new OverlayItem(gp, "Ginásio " + near_gym.get(0), near_gym.get(1) + " Tel: " + near_gym.get(2));
-			itemizedOverlay.addOverlay(overlayitem2);
+			itemizedOverlay_gym.addOverlay(overlayitem2);
 			
 			
-			mapOverlays.add(itemizedOverlay);
+			mapOverlays.add(itemizedOverlay_person);
+			mapOverlays.add(itemizedOverlay_gym);
 
 			MapController mapController = mapView.getController();
 			

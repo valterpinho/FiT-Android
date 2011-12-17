@@ -49,14 +49,14 @@ public class plano_treino extends Activity{
 		d = ProgressDialog.show(this, Utils.header, Utils.text);
 
 		setContentView(R.layout.plano_treino);
-		
+
 		//ActionBar
-        ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setTitle("FiT :: Plano de Treino");
-        actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
-        //actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
-		
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("FiT :: Plano de Treino");
+		actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
+		//actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
+
 	}	
 
 	private class getPlanos extends AsyncTask<Bundle, Integer, Intent> {
@@ -67,22 +67,22 @@ public class plano_treino extends Activity{
 			String s[] = {"id", "data", "altura", "peso"};
 
 			try {
-				
+
 				//bundle que vem de outra atividade
 				Bundle bu = bundles[0];
-				
+
 				res = bu.getStringArrayList("planos");
-				
+
 				//caso em que não vem do listar planos
 				//tem de obter o array de exercicios por pedido ao site
 				if(res == null){
-				
+
 					String fields[] = {"token"};
 					String values[] = {""+userID};
 					res = Utils.GET("planos.xml", "plano", s, fields, values);	
 				}
 
-				
+
 				//se não tiver exercicios envia um bundle só com o user-id
 				if(res.size() == 0){
 					bu.putString("user-id", userID);
@@ -184,34 +184,43 @@ public class plano_treino extends Activity{
 				t.show();
 			}
 			return true;
-		case R.id.novo_plano:
-			String nome = null;
-			try{
-				//obter o nome do utilizador
-				String s[] = {"nome"};
-				String fields[] = {"token"};
-				String values[] = {""+userID};
-				nome = Utils.GET("users.xml", "user", s, fields, values).get(0);	
-			} catch (Exception e) {
-				Toast t = Toast.makeText(getApplicationContext(),
-						"Erro inesperado! :)",
-						Toast.LENGTH_SHORT);
-				t.show();
-			}
+		case R.id.novo_plano: //solocitar novo plano
+			//fazer POST
+			String extension = "pedido_planos.xml";
+			String rNode = "pedido";
+			String[] fields = {"token"};
+			String[] values = {userID};
+			String[] responseFields = {"message"};
+			ArrayList<String> response = null;
+			try {
+				response = Utils.POST(extension, rNode, responseFields, fields, values);
 
-			if(nome != null){
-				Intent i2 = new Intent(Intent.ACTION_SEND);
-				i2.setType("text/plain");
-				i2.putExtra(Intent.EXTRA_EMAIL  , new String[]{"geral.fit@gmail.com"}); //email para onde vai ser enviada a mensagem
-				i2.putExtra(Intent.EXTRA_SUBJECT, "Pedido de novo plano de treino"); //Assunto da mensagem
-				i2.putExtra(Intent.EXTRA_TEXT   , nome+ " requisitou um novo plano de treino."); //Conteúdo da mensagem
-				try {
-					startActivity(Intent.createChooser(i2, "Send mail..."));
-				} catch (android.content.ActivityNotFoundException ex) {
-					Toast.makeText(plano_treino.this, "Serviço de email indisponível!", Toast.LENGTH_SHORT).show();
+				if(response.get(0).equals("success")){
+					AlertDialog.Builder infoResultado = new AlertDialog.Builder(plano_treino.this);
+					infoResultado.setTitle("Informação");
+					infoResultado.setMessage("Novo plano de treino requisitado com sucesso!");
+					infoResultado.setNeutralButton("Ok",null);
+					infoResultado.show();
+					response.clear();
 				}
+				else{
+					AlertDialog.Builder infoResultado = new AlertDialog.Builder(plano_treino.this);
+					infoResultado.setTitle("Informação");
+					infoResultado.setMessage("Já tem um pedido de novo plano de treino! Por favor aguarde.");
+					infoResultado.setNeutralButton("Ok",null);
+					infoResultado.show();
+					response.clear();
+				}
+				return true;
 			}
-			return true;
+			catch (Exception e) {
+				AlertDialog.Builder infoResultado = new AlertDialog.Builder(plano_treino.this);
+				infoResultado.setTitle("Erro");
+				infoResultado.setMessage("Nao foi possível concluir a operação. Tente novamente mais tarde.");
+				infoResultado.setNeutralButton("Ok",null);
+				infoResultado.show();
+				response.clear();
+			} 
 		}
 		return false;
 	}
@@ -228,7 +237,7 @@ public class plano_treino extends Activity{
 			ex.setText("Exercícios");
 			if(b.get("planoID") != null){//mostrar o plano cujo id é planoID passado no bundle
 
-				
+
 				id_plano = Integer.parseInt(b.getString("planoID"));
 
 				tv_data.setText("Data: " + b.getString("data"));
@@ -270,11 +279,11 @@ public class plano_treino extends Activity{
 			Logger.getLogger(plano_treino.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	//metodos actionBar
-    public Intent createLogoutIntent(Context context) {
-        Intent i = new Intent(context, login.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        return i;
-    }
+	public Intent createLogoutIntent(Context context) {
+		Intent i = new Intent(context, login.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		return i;
+	}
 }
