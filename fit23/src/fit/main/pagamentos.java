@@ -146,16 +146,17 @@ public class pagamentos extends Activity {
 			for(int i = 0; i < res.size(); i+=4){
 				ListMenuItem temp = new ListMenuItem("Mensalidade de " + getMesPagamento(res.get(i+2)) + " de " + res.get(i+3),
 						"Valor: " + res.get(i) + " euros",
-						"Estado: " + getEstadoPagamento(res.get(i+1))
+						"Estado: " + getEstadoPagamento(res.get(i+1)),
+						res.get(i+1)
 						);
 				lmi.add(temp);
 			}
 
 			// By using setAdpater method in listview we an add string array in list.			
-			lv_pagamentos.setAdapter(new list_exercs(this, android.R.layout.simple_list_item_1 , lmi));
+			lv_pagamentos.setAdapter(new list_pagamentos(this, android.R.layout.simple_list_item_1 , lmi));
 
 		} catch (Exception ex) {
-			Logger.getLogger(listar_planos.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(pagamentos.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 	

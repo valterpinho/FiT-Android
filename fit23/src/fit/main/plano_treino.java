@@ -18,6 +18,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -227,6 +228,20 @@ public class plano_treino extends Activity{
 
 	public void getInfo(Bundle b) throws ParserConfigurationException, SAXException{
 		try {
+			
+			TextView tv_dataplanot = (TextView) findViewById(R.id.tv_dataplanot);
+			tv_dataplanot.setTextColor(Color.rgb(173,32,33));
+			tv_dataplanot.setText("Criado em: ");
+			
+			TextView tv_alturaplanot = (TextView) findViewById(R.id.tv_alturaplanot);
+			tv_alturaplanot.setTextColor(Color.rgb(173,32,33));
+			tv_alturaplanot.setText("Altura: ");
+			
+			TextView tv_pesoplanot = (TextView) findViewById(R.id.tv_pesoplanot);
+			tv_pesoplanot.setTextColor(Color.rgb(173,32,33));
+			tv_pesoplanot.setText("Peso: ");
+			
+			//editaveis
 			TextView tv_data=(TextView)findViewById(R.id.tv_dataplano);
 			TextView tv_altura=(TextView)findViewById(R.id.tv_alturaplano);
 			TextView tv_peso=(TextView)findViewById(R.id.tv_pesoplano);
@@ -240,16 +255,16 @@ public class plano_treino extends Activity{
 
 				id_plano = Integer.parseInt(b.getString("planoID"));
 
-				tv_data.setText("Data: " + b.getString("data"));
-				tv_altura.setText("Altura: " + b.getString("altura") + " cm");
-				tv_peso.setText("Peso: " + b.getString("peso") + " Kg");
+				tv_data.setText(b.getString("data"));
+				tv_altura.setText(b.getString("altura") + " cm");
+				tv_peso.setText(b.getString("peso") + " Kg");
 
 			}
 			else{ //mostrar o plano mais actualizado
 
-				tv_data.setText("Data: " + res.get(1));
-				tv_altura.setText("Altura: " + res.get(2) + " cm");
-				tv_peso.setText("Peso: " + res.get(3) + " Kg");
+				tv_data.setText(res.get(1));
+				tv_altura.setText(res.get(2) + " cm");
+				tv_peso.setText(res.get(3) + " Kg");
 				id_plano = Integer.parseInt(res.get(0)); //assume planos ordenados 
 
 			}

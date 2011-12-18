@@ -23,6 +23,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -52,7 +53,8 @@ public class horarios extends Activity {
 		Bundle bu = getIntent().getExtras();
 
 		userID = bu.getString("user-id");
-
+		
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.horarios);
 
 		//ActionBar

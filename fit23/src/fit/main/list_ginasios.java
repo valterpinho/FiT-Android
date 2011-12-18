@@ -133,7 +133,7 @@ public class list_ginasios extends Activity {
 			//o array passado contem em cada posicao os dois conteudos: item e subitem
 			ArrayList<ListMenuItem> lmi = new ArrayList<ListMenuItem>();
 			for(int i = 0; i < res.size(); i+=5){
-				ListMenuItem temp = new ListMenuItem(res.get(i), "Telefone: " + res.get(i+1), "Morada: " + res.get(i+2));
+				ListMenuItem temp = new ListMenuItem(res.get(i), "Telefone: " + res.get(i+2), "Morada: " + res.get(i+1));
 				lmi.add(temp);
 			}
 
