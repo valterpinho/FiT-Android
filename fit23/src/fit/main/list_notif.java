@@ -181,6 +181,10 @@ public class list_notif extends Activity {
 		return b;
 	}
 	
+	public ArrayList<String> getRes(){
+    	return res;
+    }
+	
 	//metodos actionBar
     public Intent createLogoutIntent(Context context) {
         Intent i = new Intent(context, login.class);

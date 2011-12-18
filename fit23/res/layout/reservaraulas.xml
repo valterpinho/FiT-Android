@@ -164,12 +164,14 @@
                 android:layout_height="0dip"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1.0" />
-
+
             <RatingBar
                 android:id="@+id/ratingBar"
-                android:stepSize="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:stepSize="1" >
+
             </RatingBar>
 
             <TextView

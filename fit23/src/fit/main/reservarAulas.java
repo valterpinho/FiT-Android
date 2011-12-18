@@ -1,11 +1,6 @@
 package fit.main;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -33,6 +28,7 @@ public class reservarAulas extends Activity {
 	ArrayList<String> res = null, aula = null;
 	ProgressDialog d;
 	Button marcar = null;
+	RatingBar ratingbar;
 	TextView disponiveis_v;
 	int diaSemana;
 
@@ -52,6 +48,9 @@ public class reservarAulas extends Activity {
 
 		marcar = (Button) findViewById(R.id.btn_marcar);
 		marcar.setVisibility(View.GONE);
+		
+		ratingbar = (RatingBar) findViewById(R.id.ratingBar);
+		ratingbar.setVisibility(View.GONE);
 
 		//ActionBar
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
@@ -132,7 +131,7 @@ public class reservarAulas extends Activity {
 			disponiveis_v.setText(res.get(0) + " lugares");
 
 			//RatingBar
-			RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingBar);
+			ratingbar.setVisibility(1);
 			final TextView tv_rating = (TextView) findViewById(R.id.tv_rating);
 			
 			ratingbar.setRating(Float.parseFloat(res.get(5)));
@@ -142,8 +141,8 @@ public class reservarAulas extends Activity {
 			//desactiva classificação caso o user ja tenha submetido
 			if(Float.parseFloat(res.get(5)) > 0){
 				ratingbar.setEnabled(false);
-				ratingbar.setClickable(false);
-				tv_rating.setText("Feedback Submetido: " + res.get(5) + "/5");
+				//ratingbar.setClickable(false);
+				tv_rating.setText("Feedback Submetido: " + (int)Float.parseFloat(res.get(5)) + "/5");
 			}
 			
 			
@@ -175,6 +174,7 @@ public class reservarAulas extends Activity {
 									"Já submeteu feedback para esta aula!",
 									Toast.LENGTH_LONG);
 							t.show();
+							Log.e("response", ""+response);
 
 						}
 					} catch (Exception e) {
@@ -220,8 +220,6 @@ public class reservarAulas extends Activity {
 						marcar.setText("Desmarcar");
 					else
 						marcar.setText("Marcar");
-
-					Log.e("MSG", "entrou");
 
 					marcar.setOnClickListener(btn_marcar_listner);
 				}
@@ -294,11 +292,10 @@ public class reservarAulas extends Activity {
 
 			String s[] = {"lugares", "lotacao", "tem_reserva", "dia", "hora", "feedback"};
 			String fields[] = {"token", "aula_id"};
-			String values[] = {userID, aula.get(0)};
-			Log.e("ERRO", "aqui_1");
+			String values[] = {userID, aula.get(0)}; //id da aula
 			res = Utils.GET("getinfo.xml", "reserva", s, fields, values);
-			Log.e("ERRO", "aqui_2");
-			Log.e("ERRO", ""+res);
+			Log.e("GET RES", ""+res);
+
 
 		} catch (Exception e){
 			Toast t = Toast.makeText(getApplicationContext(),
