@@ -56,7 +56,7 @@ public class pagamentos extends Activity {
 		Intent i = null;
 
 		protected Intent doInBackground(String... urls) {
-			String respFields[] = {"preco", "pago", "mes", "ano"};
+			String respFields[] = {"preco", "pago", "mes", "ano", "modalidade"};
 			String fields[] = {"token"};
 			String values[] = {""+userID}; //token
 
@@ -143,10 +143,10 @@ public class pagamentos extends Activity {
 
 			//o array passado contem em cada posicao os dois conteudos: item e subitem
 			ArrayList<ListMenuItem> lmi = new ArrayList<ListMenuItem>();
-			for(int i = 0; i < res.size(); i+=4){
+			for(int i = 0; i < res.size(); i+=5){
 				ListMenuItem temp = new ListMenuItem("Mensalidade de " + getMesPagamento(res.get(i+2)) + " de " + res.get(i+3),
-						"Valor: " + res.get(i) + " euros",
-						"Estado: " + getEstadoPagamento(res.get(i+1)),
+						"Modalidade: " + res.get(i+4),
+						"Valor: " + res.get(i) + " euros | Estado: " + getEstadoPagamento(res.get(i+1)),
 						res.get(i+1)
 						);
 				lmi.add(temp);
