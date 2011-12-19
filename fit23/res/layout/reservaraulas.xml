@@ -164,21 +164,42 @@
                 android:layout_height="0dip"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1.0" />
-
+
+            <TextView
+                android:id="@+id/tv_classmedia"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" />
+
             <RatingBar
-                android:id="@+id/ratingBar"
+                android:id="@+id/ratingBar_media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:stepSize="1" >
-
+                android:stepSize="0.1" >
             </RatingBar>
+            
+            <TextView
+                android:id="@+id/tv_media_valor"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" />
 
             <TextView
                 android:id="@+id/tv_rating"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal" />
+
+            <RatingBar
+                android:id="@+id/ratingBar_own"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip"
+                android:stepSize="1" >
+            </RatingBar>
         </LinearLayout>
     </ScrollView>
 

@@ -55,6 +55,9 @@ public class menu extends Activity {
 		
 		LinearLayout pagamentos = (LinearLayout) findViewById(R.id.layout_pagamentos);
 		pagamentos.setOnClickListener(lstn_pagamentos);
+		
+		LinearLayout plano_alimentar = (LinearLayout) findViewById(R.id.layout_plano_alimentar);
+		plano_alimentar.setOnClickListener(lstn_palimentar);
 
 		//falta adicionar listeners aos outros layouts/botoes
 	}
@@ -171,6 +174,20 @@ public class menu extends Activity {
 			Bundle b = new Bundle();
 			
 			Intent i = new Intent(menu.this, pagamentos.class);
+
+			b.putString("user-id", userID);
+
+			i.putExtras(b);
+			
+			startActivity(i);
+		}
+	};
+	
+	private OnClickListener lstn_palimentar = new OnClickListener() {
+		public void onClick(View v) {
+			Bundle b = new Bundle();
+			
+			Intent i = new Intent(menu.this, plano_alimentar.class);
 
 			b.putString("user-id", userID);
 

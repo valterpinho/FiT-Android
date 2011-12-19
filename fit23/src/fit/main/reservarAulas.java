@@ -28,16 +28,17 @@ public class reservarAulas extends Activity {
 	ArrayList<String> res = null, aula = null;
 	ProgressDialog d;
 	Button marcar = null;
-	RatingBar ratingbar;
+	RatingBar ratingbar_media, ratingbar_own;
 	TextView disponiveis_v;
 	int diaSemana;
+	Bundle reserva;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
 
-		Bundle reserva = getIntent().getExtras();
+		reserva = getIntent().getExtras();
 		userID = reserva.getString("user-id");
 		//"id", "hora", "duracao", "estudio", "staff", "modalidade"
 		aula = reserva.getStringArrayList("aula");
@@ -49,8 +50,11 @@ public class reservarAulas extends Activity {
 		marcar = (Button) findViewById(R.id.btn_marcar);
 		marcar.setVisibility(View.GONE);
 		
-		ratingbar = (RatingBar) findViewById(R.id.ratingBar);
-		ratingbar.setVisibility(View.GONE);
+		ratingbar_media = (RatingBar) findViewById(R.id.ratingBar_media);
+		ratingbar_media.setVisibility(View.GONE);
+		
+		ratingbar_own = (RatingBar) findViewById(R.id.ratingBar_own);
+		ratingbar_own.setVisibility(View.GONE);
 
 		//ActionBar
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
@@ -131,23 +135,34 @@ public class reservarAulas extends Activity {
 			disponiveis_v.setText(res.get(0) + " lugares");
 
 			//RatingBar
-			ratingbar.setVisibility(1);
-			final TextView tv_rating = (TextView) findViewById(R.id.tv_rating);
-			
-			ratingbar.setRating(Float.parseFloat(res.get(5)));
-			
-			tv_rating.setText("Dê o seu Feedback sobre esta aula!");
-			
-			//desactiva classificação caso o user ja tenha submetido
-			if(Float.parseFloat(res.get(5)) > 0){
-				ratingbar.setEnabled(false);
-				//ratingbar.setClickable(false);
-				tv_rating.setText("Feedback Submetido: " + (int)Float.parseFloat(res.get(5)) + "/5");
+			TextView tv_classmedia = (TextView) findViewById(R.id.tv_classmedia);
+			tv_classmedia.setText("Classificação média da aula:");
+			//se  media > 0 apresenta ratingbar senao altera o texto
+			TextView tv_media_valor = (TextView) findViewById(R.id.tv_media_valor);
+			if(!res.get(6).equals("0.0")){
+				ratingbar_media.setRating(Float.parseFloat(res.get(6)));
+				ratingbar_media.setVisibility(1);
+				tv_classmedia.append(" " + res.get(6) + "/5.0");
+				ratingbar_media.setEnabled(false);
+				ratingbar_media.setClickable(false);
+			}
+			else{
+				tv_media_valor.setText("Seja o primeiro a classificar esta aula!");
 			}
 			
+			//feedback own
+			TextView tv_rating = (TextView) findViewById(R.id.tv_rating);
+			if(res.get(5).equals("0.0")){
+				ratingbar_own.setVisibility(1);
+				if(!res.get(6).equals("0.0"))
+					tv_rating.setText("Classifique esta aula!");		
+			}
+			else{
+				tv_rating.setText("A sua classificação: " + res.get(5));
+			}
+				
 			
-			
-			ratingbar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+			ratingbar_own.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 
 				public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 					String rNode = "feedback";
@@ -161,20 +176,24 @@ public class reservarAulas extends Activity {
 
 						if(response.get(0).equals("success")){
 							
-							tv_rating.setText("Feedback Submetido: " + (int)rating + "/5");
-
+							Intent i = new Intent(reservarAulas.this, reservarAulas.class);
+							i.putExtras(reserva);
+														
 							Toast t = Toast.makeText(getApplicationContext(),
 									"Feedback submetido com sucesso!",
 									Toast.LENGTH_LONG);
 							t.show();
+							
+							reservarAulas.this.finish();
+							startActivity(i);
 						}
 						else{
 
+							String mensagem = response.toString().substring(1,response.toString().length()-1);
 							Toast t = Toast.makeText(getApplicationContext(),
-									"Já submeteu feedback para esta aula!",
+									mensagem,
 									Toast.LENGTH_LONG);
 							t.show();
-							Log.e("response", ""+response);
 
 						}
 					} catch (Exception e) {
@@ -232,8 +251,6 @@ public class reservarAulas extends Activity {
 		public void onClick(View v) {
 			String rNode = "reserva";
 			String[] fields = {"token","aula_id"};
-			Log.e("IDAULA", ""+aula.get(0));
-			Log.e("TOKEN", userID);
 			String[] values = {userID, aula.get(0)};
 			String[] responseFields = {"message"};
 			ArrayList<String> response = null;
@@ -286,11 +303,13 @@ public class reservarAulas extends Activity {
 			}
 		}
 	};
-
+	
+	
+	//do in background 
 	public void getInfo() {
 		try {
 
-			String s[] = {"lugares", "lotacao", "tem_reserva", "dia", "hora", "feedback"};
+			String s[] = {"lugares", "lotacao", "tem_reserva", "dia", "hora", "feedback", "media"};
 			String fields[] = {"token", "aula_id"};
 			String values[] = {userID, aula.get(0)}; //id da aula
 			res = Utils.GET("getinfo.xml", "reserva", s, fields, values);

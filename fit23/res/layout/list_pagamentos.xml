@@ -13,12 +13,6 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-
         <TextView
             android:id="@+id/nome"
             android:layout_width="wrap_content"
@@ -39,5 +33,11 @@
             android:layout_marginLeft="10dip"
             android:textColor="#AD2021" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="right" />
 
 </LinearLayout>

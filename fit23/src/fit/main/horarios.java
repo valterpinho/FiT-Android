@@ -59,7 +59,7 @@ public class horarios extends Activity {
 
 		//ActionBar
 		actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle("FiT :: Aulas :: Segunda");
+		actionBar.setTitle("FiT :: Aulas :: Domingo");
 		actionBar.setHomeAction(new IntentAction(this, menu.createIntent(this), R.drawable.ic_title_home_default));
 		actionBar.addAction(new IntentAction(this, createLogoutIntent(this), R.drawable.ic_title_share_default));
 
@@ -162,31 +162,31 @@ public class horarios extends Activity {
 		for(int i=0; i < res.size(); i+=7){
 			int dia = Integer.parseInt(res.get(i));
 			switch (dia){
-			case 0:
+			case 1:
 				for(int j = i+1; j <= i + 6; j++)
 					segunda.add(res.get(j));
 				break;
-			case 1:
+			case 2:
 				for(int j = i+1; j <= i + 6; j++)
 					terca.add(res.get(j));
 				break;
-			case 2:
+			case 3:
 				for(int j = i+1; j <= i + 6; j++)
 					quarta.add(res.get(j));
 				break;
-			case 3:
+			case 4:
 				for(int j = i+1; j <= i + 6; j++)
 					quinta.add(res.get(j));
 				break;
-			case 4:
+			case 5:
 				for(int j = i+1; j <= i + 6; j++)
 					sexta.add(res.get(j));
 				break;
-			case 5:
+			case 6:
 				for(int j = i+1; j <= i + 6; j++)
 					sabado.add(res.get(j));
 				break;
-			case 6:
+			case 0:
 				for(int j = i+1; j <= i + 6; j++)
 					domingo.add(res.get(j));
 				break;
@@ -203,25 +203,25 @@ public class horarios extends Activity {
 			@Override
 			public void onPageSelected(int page) {
 				switch (page){
-				case 0:
+				case 1:
 					actionBar.setTitle("FiT :: Aulas :: Segunda");
 					break;
-				case 1:
+				case 2:
 					actionBar.setTitle("FiT :: Aulas :: Terça");
 					break;
-				case 2:
+				case 3:
 					actionBar.setTitle("FiT :: Aulas :: Quarta");
 					break;
-				case 3:
+				case 4:
 					actionBar.setTitle("FiT :: Aulas :: Quinta");
 					break;
-				case 4:
+				case 5:
 					actionBar.setTitle("FiT :: Aulas :: Sexta");
 					break;
-				case 5:
+				case 6:
 					actionBar.setTitle("FiT :: Aulas :: Sábado");
 					break;
-				case 6:
+				case 0:
 					actionBar.setTitle("FiT :: Aulas :: Domingo");
 					break;
 				default:
@@ -257,21 +257,22 @@ public class horarios extends Activity {
 			diaSemana sab = new diaSemana(context, sabado);
 			diaSemana dom = new diaSemana(context, domingo);
 
+			views.add(dom);
 			views.add(seg);
 			views.add(ter);
 			views.add(qua);
 			views.add(qui);
 			views.add(sex);
 			views.add(sab);
-			views.add(dom);
+			
 
-			setListner(seg.getListView(), segunda, 0);
-			setListner(ter.getListView(), terca, 1);
-			setListner(qua.getListView(), quarta, 2);
-			setListner(qui.getListView(), quinta, 3);
-			setListner(sex.getListView(), sexta, 4);
-			setListner(sab.getListView(), sabado, 5);
-			setListner(dom.getListView(), domingo, 6);
+			setListner(seg.getListView(), segunda, 1);
+			setListner(ter.getListView(), terca, 2);
+			setListner(qua.getListView(), quarta, 3);
+			setListner(qui.getListView(), quinta, 4);
+			setListner(sex.getListView(), sexta, 5);
+			setListner(sab.getListView(), sabado, 6);
+			setListner(dom.getListView(), domingo, 0);
 
 		}
 
